@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node tools/build.js",
     "check": "node tools/check.js",
+    "import": "node tools/import.js",
     "extract": "node tools/extract.js",
     "dupes": "node tools/dupecheck.js",
     "prepublishOnly": "node tools/check.js"

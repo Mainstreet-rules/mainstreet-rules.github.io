@@ -55,23 +55,28 @@ everyone, the owner included.
 
 ## Changing the rules
 
-Staff edit in the artifact. To push those changes to the public site:
+Staff edit in the artifact, which is the only copy with the Admin panel and
+the editing tools. Publishing there updates the staff copy immediately, but
+**it does not touch the public site** — these are two separate copies.
+
+To bring artifact changes across to the public site:
+
+1. In the artifact: **Admin → Download full archive** (saves a `.json`)
+2. Then here:
 
 ```bash
-npm run extract   # pull rules + markers from the artifact, dropping staff data
-npm run build     # regenerate index.html
-npm run check     # 13 checks, including the staff-data guard
+npm run import ~/Downloads/mainstreet-rulebook-archive-YYYY-MM-DD.json
+npm run build
+npm run check
 git add -A && git commit -m "rulebook update" && git push
 ```
 
-Pages redeploys within a minute or so.
+The import keeps the rules and markers and drops the roster, audit log and
+backups, so staff data never reaches this public repository. Pages redeploys
+within a minute of the push.
 
 For bigger jobs — restructuring sections, bulk imports — edit `src/book.json`
-directly, then `npm run build && npm run check` and push.
-
-> **Run `npm run extract` before editing locally.** It pulls the live rules out
-> of the artifact. Skip it and your next build silently overwrites whatever
-> staff published since the last time you did.
+directly instead, then build, check and push.
 
 ---
 
@@ -85,7 +90,8 @@ dist/rulebook.html  the same bytes, kept for convenience
 .nojekyll           stops Pages putting the site through Jekyll
 tools/build.js      book.json + template.html → index.html
 tools/check.js      verification; exits non-zero on failure
-tools/extract.js    pulls rules back out of a built page, strips staff data
+tools/import.js     brings an artifact archive into the repo, strips staff data
+tools/extract.js    pulls rules out of a built page (advanced)
 tools/dupecheck.js  reports rules that say close to the same thing
 ```
 
