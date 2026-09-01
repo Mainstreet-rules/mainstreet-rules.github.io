@@ -3,7 +3,7 @@
 The Mainstreet RP rulebook as a single self-contained web page: searchable, with every
 rule carrying its own permanent ID.
 
-**Live:** https://kittyka917.github.io/
+**Live:** https://mainstreet-rules.github.io/
 
 76 rules across ⭐ General Rules, 🏛️ Government and 😈 Illegal, plus the
 Rulebook Updates changelog.
@@ -15,7 +15,7 @@ Rulebook Updates changelog.
 One self-contained file. No dependencies at runtime, no build step on the
 server, nothing to install.
 
-This repo is a **user site** (`kittyka917.github.io`), so Pages serves the
+This repo is an **organisation site** (`mainstreet-rules.github.io`), so Pages serves the
 repository root and the page is `index.html` at the top level. `index.html` is
 written by `npm run build` and committed, so Pages has only to serve it.
 `.nojekyll` stops Pages running the files through Jekyll. For a custom domain,

@@ -44,8 +44,8 @@ const out = tpl.split('__BOOK_JSON__').join(json);
 fs.mkdirSync(path.dirname(OUT), {recursive: true});
 fs.writeFileSync(OUT, out, 'utf8');
 
-// GitHub Pages copy. This is a user site (kittyka917.github.io), which serves
-// from the repository root, so the page has to be index.html at the top level.
+// GitHub Pages copy. This is an organisation site (mainstreet-rules.github.io),
+// which serves from the repository root, so the page has to be index.html there.
 // .nojekyll stops Pages running the files through Jekyll.
 // Only written on a normal build, not when building to a scratch path.
 if (!process.argv[2]) {
