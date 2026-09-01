@@ -14,15 +14,16 @@ Rulebook Updates changelog.
 The whole site is one self-contained file. Nothing to install, no build step on
 the server, no dependencies at runtime.
 
-1. Push this repo to GitHub.
-2. **Settings → Pages → Source: Deploy from a branch**, branch `main`,
-   folder **`/docs`**. Save.
-3. It goes live at `https://<user>.github.io/<repo>/` a minute later.
+This repo is a **user site** (`kittyka917.github.io`), so Pages serves the
+repository root and the page lives at `index.html` at the top level. Once Pages
+is switched on for `main` / `/ (root)`, the rulebook is live at:
 
-`docs/index.html` is written by `npm run build` and committed, so Pages has
-nothing to do but serve it. `docs/.nojekyll` stops Pages running the files
-through Jekyll. For a custom domain, add a `docs/CNAME` file containing the
-domain and point your DNS at GitHub.
+**https://kittyka917.github.io/**
+
+`index.html` is written by `npm run build` and committed, so Pages has nothing
+to do but serve it. `.nojekyll` stops Pages running the files through Jekyll.
+For a custom domain, add a `CNAME` file containing the domain and point your
+DNS at GitHub.
 
 ### The editor does not exist on the hosted site
 
@@ -79,15 +80,15 @@ Then publish `dist/rulebook.html` as a new version of the artifact.
 src/book.json       every rule, marker, roster entry and audit entry — the source of truth
 src/template.html   the page itself: styles, markup, and the engine
 dist/rulebook.html  the built page — publish this as the artifact
-docs/index.html     the same page, where GitHub Pages serves it from
-docs/.nojekyll      stops Pages putting the site through Jekyll
-tools/build.js      book.json + template.html → dist/ and docs/
+index.html          the same page, where GitHub Pages serves it from
+.nojekyll           stops Pages putting the site through Jekyll
+tools/build.js      book.json + template.html → dist/rulebook.html and index.html
 tools/check.js      verification; exits non-zero on failure
 tools/extract.js    pulls data back out of a built page into src/book.json
 tools/dupecheck.js  reports rules that say close to the same thing
 ```
 
-`dist/rulebook.html` and `docs/index.html` are the same bytes — one build
+`dist/rulebook.html` and `index.html` are the same bytes — one build
 writes both, and `npm run check` fails if either drifts.
 
 `src/template.html` contains a `__BOOK_JSON__` placeholder; the build splices

@@ -55,11 +55,12 @@ const distPath = path.join(ROOT, 'dist', 'rulebook.html');
 const dist = fs.existsSync(distPath) ? fs.readFileSync(distPath, 'utf8') : '';
 check(dist === fresh, 'dist/rulebook.html matches a fresh build', 'dist/rulebook.html is stale — run `npm run build`');
 
-/* 4b — the GitHub Pages copy is the same page */
-const pagePath = path.join(ROOT, 'docs', 'index.html');
+/* 4b — the GitHub Pages copy is the same page. This is a user site, so Pages
+   serves the repository root: the page must be index.html at the top level. */
+const pagePath = path.join(ROOT, 'index.html');
 const page = fs.existsSync(pagePath) ? fs.readFileSync(pagePath, 'utf8') : '';
-check(page === fresh, 'docs/index.html matches a fresh build', 'docs/index.html is missing or stale — run `npm run build`');
-check(fs.existsSync(path.join(ROOT, 'docs', '.nojekyll')), 'docs/.nojekyll present', 'docs/.nojekyll is missing — Pages may mangle the site');
+check(page === fresh, 'index.html matches a fresh build', 'index.html is missing or stale — run `npm run build`');
+check(fs.existsSync(path.join(ROOT, '.nojekyll')), '.nojekyll present', '.nojekyll is missing — Pages may mangle the site');
 
 /* 5 — the data block cannot break out of its script tag */
 const block = fresh.match(/id="book-data">([\s\S]*?)<\/script>/);

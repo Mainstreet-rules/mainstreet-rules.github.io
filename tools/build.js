@@ -35,15 +35,14 @@ const out = tpl.split('__BOOK_JSON__').join(json);
 fs.mkdirSync(path.dirname(OUT), {recursive: true});
 fs.writeFileSync(OUT, out, 'utf8');
 
-// GitHub Pages copy. Serving from main → /docs needs the page at
-// docs/index.html; .nojekyll stops Pages running the files through Jekyll.
+// GitHub Pages copy. This is a user site (kittyka917.github.io), which serves
+// from the repository root, so the page has to be index.html at the top level.
+// .nojekyll stops Pages running the files through Jekyll.
 // Only written on a normal build, not when building to a scratch path.
 if (!process.argv[2]) {
-  const docs = path.join(ROOT, 'docs');
-  fs.mkdirSync(docs, {recursive: true});
-  fs.writeFileSync(path.join(docs, 'index.html'), out, 'utf8');
-  fs.writeFileSync(path.join(docs, '.nojekyll'), '', 'utf8');
-  console.log('wrote docs/index.html for GitHub Pages');
+  fs.writeFileSync(path.join(ROOT, 'index.html'), out, 'utf8');
+  fs.writeFileSync(path.join(ROOT, '.nojekyll'), '', 'utf8');
+  console.log('wrote index.html for GitHub Pages');
 }
 
 const rules = book.reduce((n, s) => n + (s.groups || []).reduce((m, g) => m + g.rules.length, 0), 0);
