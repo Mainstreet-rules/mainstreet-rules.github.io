@@ -9,7 +9,8 @@
     "import": "node tools/import.js",
     "extract": "node tools/extract.js",
     "dupes": "node tools/dupecheck.js",
-    "prepublishOnly": "node tools/check.js"
+    "prepublishOnly": "node tools/check.js",
+    "publish": "node tools/publish.js"
   },
   "engines": {
     "node": ">=18"
