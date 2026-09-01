@@ -1,0 +1,25 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # No dependencies to install — the build is plain Node.
+      # This also fails if dist/ or docs/ is stale, which is the most likely
+      # mistake: editing src/ and forgetting to run the build.
+      - name: Verify the rulebook
+        run: node tools/check.js
+
+      - name: Report near-duplicate rules
+        run: node tools/dupecheck.js

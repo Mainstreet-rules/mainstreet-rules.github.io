@@ -1,0 +1,684 @@
+{
+ "book": [
+  {
+   "id": "general",
+   "name": "General Rules",
+   "icon": "general",
+   "blurb": "To keep the server fair, fun, and balanced for everyone, all players are expected to follow these core rules at all times.",
+   "groups": [
+    {
+     "id": "expected",
+     "name": "Expected of Everyone",
+     "prefix": "GEN",
+     "rules": [
+      {
+       "id": "GEN-01",
+       "t": "Be Respectful",
+       "f": "ok",
+       "b": "<p>Treat all players and staff with respect. No discrimination, hate speech, or personal attacks.</p>"
+      },
+      {
+       "id": "GEN-02",
+       "t": "Valid Interactions",
+       "f": "ok",
+       "b": "<p>For an interaction to be valid, you must complete a <strong>30-second interaction</strong> and have a proper RP reasoning for said interaction.</p>"
+      }
+     ],
+     "emoji": "✅"
+    },
+    {
+     "id": "standards",
+     "name": "Roleplay Standards",
+     "prefix": "GEN",
+     "rules": [
+      {
+       "id": "GEN-16",
+       "t": "No Going OOC — Stay in Character",
+       "f": "warn",
+       "b": "<p>You are your character from the moment you spawn in to the moment you log out. Every scene is played in character, start to finish.</p><ul><li>Do not break character to talk about the server, the game, restarts, or anything happening at your desk.</li><li>Do not use OOC chat to argue, explain yourself, or talk your way out of what is happening to your character.</li><li>Going OOC to get out of a robbery, an arrest, a kidnapping, or a death is <strong>FailRP</strong>, and is treated the same as combat logging.</li><li>OOC chat is for genuine emergencies only — a bug, a crash, or a scene that has to stop.</li><li>If you believe someone is breaking a rule, play the scene out and report it afterwards. Never stop the roleplay to argue the rulebook.</li></ul>"
+      },
+      {
+       "id": "GEN-03",
+       "t": "New Life Rule (NLR)",
+       "f": "warn",
+       "b": "<p>Upon being revived by EMS or respawning, your character has no memory of the events that led to their death. You may not:</p><ul><li>Return to the scene of your death for <strong>15 minutes</strong></li><li>Seek revenge on players who killed you</li><li>Use information gained before death in the new life</li></ul>"
+      },
+      {
+       "id": "GEN-04",
+       "t": "Value of Life (VOL)",
+       "f": "warn",
+       "b": "<p><strong>Value your life.</strong> Your character should act as though their life has value. Do not rush into gunfights recklessly or act fearless when clearly outnumbered or outgunned.</p>"
+      },
+      {
+       "id": "GEN-05",
+       "t": "No Vehicle Deathmatch (VDM)",
+       "f": "warn",
+       "b": "<p>Using a vehicle as a primary weapon to run over players intentionally is prohibited unless it is a direct and reasonable escalation of an active, in-character conflict.</p>"
+      },
+      {
+       "id": "GEN-06",
+       "t": "No Random Deathmatch (RDM)",
+       "f": "warn",
+       "b": "<p>You must have valid, developed in-character reasoning before harming or killing another player. Killing someone because they looked at you funny is not valid RP motivation. Follow a <strong>30-second interaction</strong> rule.</p>"
+      },
+      {
+       "id": "GEN-07",
+       "t": "No Metagaming",
+       "f": "warn",
+       "b": "<p>Do not use information your character would not realistically know. This includes using Discord, streams, or OOC chat to gain in-character advantages. Your character only knows what they have personally experienced in-game. This includes using out-of-city calls.</p>"
+      },
+      {
+       "id": "GEN-08",
+       "t": "Keep RP Respectful",
+       "f": "warn",
+       "b": "<p>Even in conflict RP, keep it within realistic and non-personal boundaries.</p>"
+      },
+      {
+       "id": "GEN-09",
+       "t": "Separation of IC & OOC",
+       "f": "warn",
+       "b": "<p>Do not bring real-life issues into roleplay or use OOC information in character.</p>"
+      },
+      {
+       "id": "GEN-10",
+       "t": "No Toxic Behavior",
+       "f": "warn",
+       "b": "<p>Trolling, griefing, or intentionally ruining others’ roleplay is not allowed.</p>"
+      },
+      {
+       "id": "GEN-11",
+       "t": "Combat Logging (CL)",
+       "f": "warn",
+       "b": "<p>Disconnecting from the server during an active scenario, including combat, arrests, robberies, or any ongoing conflict, is strictly forbidden. Wait for the situation to fully conclude before logging off.</p>"
+      }
+     ],
+     "emoji": "🟡"
+    },
+    {
+     "id": "zero",
+     "name": "Zero Tolerance",
+     "prefix": "GEN",
+     "rules": [
+      {
+       "id": "GEN-12",
+       "t": "No Cheating, Hacking, or Exploiting",
+       "f": "no",
+       "b": "<p>Using any modifications, trainers, exploits, or third-party tools that provide an unfair advantage results in a <strong>permanent ban</strong>. Report any exploits found to staff immediately. Assisting, covering for, or defending a player who is using cheats will result in punishment.</p><p>This includes using no props, no bushes, or any similar modifications that alter in-game objects to gain an unfair advantage.</p>"
+      },
+      {
+       "id": "GEN-13",
+       "t": "No Real Money Trading",
+       "f": "no",
+       "b": "<p>Selling, buying, or exchanging in-game items, currency, vehicles, properties, or any other in-game assets for real-life money is strictly forbidden.</p>"
+      },
+      {
+       "id": "GEN-14",
+       "t": "No Slurs or Hate Speech",
+       "f": "no",
+       "b": "<p>Racist, sexist, homophobic, or any slurs are strictly prohibited in all forms (IC or OOC).</p>"
+      },
+      {
+       "id": "GEN-15",
+       "t": "No Promoting Other Cities",
+       "f": "no",
+       "b": "<p>Promoting, advertising, or recruiting for other FiveM servers anywhere on this platform — in-game, in OOC, or via direct message — will result in an immediate ban.</p>"
+      }
+     ],
+     "emoji": "❌"
+    }
+   ],
+   "emoji": "⭐"
+  },
+  {
+   "id": "government",
+   "name": "Government",
+   "icon": "gov",
+   "blurb": "Standards for the whitelisted departments — law enforcement, mechanics, and EMS.",
+   "groups": [
+    {
+     "id": "police",
+     "name": "Police Department / Sheriff",
+     "prefix": "PD",
+     "rules": [
+      {
+       "id": "PD-01",
+       "t": "Respect",
+       "b": "<p>Treat all civilians, EMS, Fire, and LEOs with respect.</p>"
+      },
+      {
+       "id": "PD-02",
+       "t": "Use of Force",
+       "b": "<p>Use the minimum force necessary. Deadly force is a last resort.</p>"
+      },
+      {
+       "id": "PD-03",
+       "t": "Traffic Stops",
+       "b": "<p>Explain the reason for the stop and follow proper procedures. The traffic stop needs to be valid.</p>"
+      },
+      {
+       "id": "PD-04",
+       "t": "Pursuits",
+       "b": "<p>Only pursue when the suspect poses a danger or has committed a serious crime. Call for backup early.</p>"
+      },
+      {
+       "id": "PD-05",
+       "t": "Search and Seizure",
+       "b": "<p>Have a valid RP reason before searching a person or vehicle. Seeing someone you dislike is not a valid reason.</p>"
+      },
+      {
+       "id": "PD-06",
+       "t": "Fair Roleplay",
+       "b": "<p>Don’t abuse panel powers to win RP. Create fun scenes for everyone.</p>"
+      },
+      {
+       "id": "PD-07",
+       "t": "Evidence",
+       "b": "<p>Collect evidence when applicable before making major charges. Evidence or watching the crime occur is a <strong>MUST</strong> before making an arrest.</p>"
+      },
+      {
+       "id": "PD-08",
+       "t": "Corruption",
+       "b": "<p>Corruption must be approved by the Illegal Division and the Government Division.</p>"
+      }
+     ],
+     "emoji": "👮"
+    },
+    {
+     "id": "mechanic",
+     "name": "Mechanic",
+     "prefix": "MECH",
+     "rules": [
+      {
+       "id": "MECH-01",
+       "t": "Stealing Cars",
+       "f": "warn",
+       "b": "<p>Stealing cars within the mechanic shop is not permitted.</p>"
+      },
+      {
+       "id": "MECH-02",
+       "t": "Loitering",
+       "f": "warn",
+       "b": "<p>You should not be in the mechanic shop harassing mechanics or horseplaying. If you are not getting your car worked on, you must leave unless you are permitted to do so by a mechanic.</p>"
+      }
+     ],
+     "emoji": "🔧"
+    },
+    {
+     "id": "ems",
+     "name": "Emergency Medical Services (EMS)",
+     "prefix": "EMS",
+     "rules": [
+      {
+       "id": "EMS-01",
+       "t": "Loitering",
+       "f": "warn",
+       "b": "<p>The hospital is not a meet-up spot. You should not be within or outside the hospital for more than <strong>5 minutes</strong> without a valid RP with EMS.</p>"
+      },
+      {
+       "id": "EMS-02",
+       "t": "Stealing Cars",
+       "f": "warn",
+       "b": "<p>Stealing EMS vehicles is not permitted.</p>"
+      }
+     ],
+     "emoji": "🚑"
+    }
+   ],
+   "emoji": "🏛️"
+  },
+  {
+   "id": "illegal",
+   "name": "Illegal",
+   "icon": "illegal",
+   "blurb": "Gangs, freelancers, and every rule the criminal side of the city runs on. Gang leadership is responsible for ensuring all members understand and follow these rules.",
+   "groups": [
+    {
+     "id": "conduct",
+     "name": "Conduct & Standards",
+     "emoji": "🎭",
+     "prefix": "OOC",
+     "rules": [
+      {
+       "id": "OOC-01",
+       "t": "Gang Leader Responsibilities",
+       "b": "<p>Gang leaders are responsible for the conduct of their members. Repeated rule violations by gang members reflect on the gang’s standing and may affect gang privileges.</p>"
+      },
+      {
+       "id": "OOC-02",
+       "t": "Disputing Illegal Division Rulings",
+       "b": "<p>Disputes with Illegal Division rulings must be escalated through the official appeals process, not argued in public chats, game voice, or other player-facing channels.</p>"
+      },
+      {
+       "id": "OOC-03",
+       "t": "Out-of-Character Beef Stays Outside of RP",
+       "f": "warn",
+       "b": "<p>All criminal RP must stay IC (in-character) at all times. Personal OOC (out-of-character) beef between players may not be carried into IC situations.</p>"
+      },
+      {
+       "id": "OOC-04",
+       "t": "Metagaming",
+       "f": "no",
+       "b": "<p><strong>Metagaming</strong> (using OOC information IC) is a serious violation. This includes using Discord DMs, stream-sniping, or outside knowledge to gain IC advantage.</p>"
+      },
+      {
+       "id": "OOC-05",
+       "t": "Hate Speech",
+       "f": "no",
+       "b": "<p>Racism, homophobia, or real-world hate speech — even in character — is not permitted under any circumstances.</p>"
+      }
+     ]
+    },
+    {
+     "id": "combat",
+     "name": "Combat & Engagement",
+     "emoji": "🔫",
+     "prefix": "CMB",
+     "rules": [
+      {
+       "id": "CMB-01",
+       "t": "Gang War Initiation",
+       "b": "<p>Gang wars and open conflict must be initiated through IC escalation — a formal declaration, an IC provocation, or documented prior beef. Cold-initiating warfare without RP buildup is not allowed.</p>"
+      },
+      {
+       "id": "CMB-02",
+       "t": "Interactions",
+       "b": "<p>Interactions must consist of:</p><ul><li>Must be outside of a car to start an interaction. This means you must be out of the car speaking with the other person for 30 seconds before shooting. (Unless it’s a drive-by.)</li><li><strong>30-second interaction.</strong> You must have a conversation with another person before shooting.</li><li>Guns can be out during the 30-second interaction, however guns cannot be pointed at someone.</li><li>Must be a valid RP reason. You cannot start an interaction by saying “You looked at me funny”.</li><li>Interactions with the same people must have at least <strong>15 minutes</strong> between each interaction.</li></ul>"
+      },
+      {
+       "id": "CMB-03",
+       "t": "Combat From Vehicles",
+       "b": "<p>No shooting from inside a vehicle without prior RP justification or during an active, declared pursuit/conflict.</p><p>Drive-bys must be part of an ongoing conflict, not a surprise initiation. On a drive-by you cannot return to a scene; it must be a genuine drive-by.</p><p>Shooting out of BP vehicles is prohibited.</p>"
+      },
+      {
+       "id": "CMB-04",
+       "t": "New Life Rule",
+       "f": "warn",
+       "b": "<p>After being downed or killed, a <strong>New Life Rule (NLR)</strong> applies: you forget the events leading to your death and may not return to the same scene for <strong>15 minutes</strong>.</p>"
+      },
+      {
+       "id": "CMB-05",
+       "t": "Value Your Life (VOL)",
+       "f": "warn",
+       "b": "<p><strong>Value your life.</strong> Your character should act as though their life has value. Do not rush into gunfights recklessly or act fearless when clearly outnumbered or outgunned.</p>"
+      },
+      {
+       "id": "BAI-01",
+       "t": "Gang & PD Baiting",
+       "b": "<ul><li>Gang baiting and PD baiting may result in a <strong>gang strike</strong>.</li><li>Do not loiter outside compounds, antagonize members or officers, or force unwanted scenes.</li><li>Context will be reviewed by Illegal Team.</li></ul>",
+       "f": "warn"
+      }
+     ]
+    },
+    {
+     "id": "alliances",
+     "name": "Alliances",
+     "emoji": "🤝",
+     "prefix": "ALC",
+     "rules": [
+      {
+       "id": "ALC-01",
+       "t": "One Ally Rule",
+       "b": "<p>Each gang may have <strong>ONE official ally</strong>.</p><ul><li>Gangs cannot create extra factions, chapters, sectors, or panels to bypass the One Ally Rule.</li><li>Alliances cannot be used as unofficial extensions of your gang.</li></ul>",
+       "f": "warn"
+      },
+      {
+       "id": "ALC-03",
+       "t": "What an Alliance Is For",
+       "b": "<ul><li>Alliances are meant to build the illegal economy and create RP.</li><li>Work together through trading, production, resources, and business.</li><li>Alliances are <strong>NOT</strong> an extension of your gang.</li><li>Do not use alliances to bully, target, or overpower other gangs.</li></ul>"
+      },
+      {
+       "id": "ALL-01",
+       "t": "Alliance Balance",
+       "b": "<p>Alliances that result in a single faction controlling more than <strong>50% of criminal activity or territory</strong> will be reviewed and may be broken up by the Illegal Team to preserve server balance.</p>"
+      },
+      {
+       "id": "ALL-04",
+       "t": "Gang Rivalries",
+       "b": "<p>Rivalries should produce engaging RP storylines, not constant zerging or griefing loops. The goal is compelling conflict, not one side being unable to play.</p>"
+      },
+      {
+       "id": "ALC-05",
+       "t": "Combined & Active Scenes",
+       "b": "<ul><li>Allied gangs may participate in combined scenes when appropriate.</li><li>Numbers must remain fair and balanced.</li><li>Allies may intervene if their alliance is actively under attack.</li><li>All normal interaction and server rules still apply.</li><li>Once a scene is over, it is over — allies cannot arrive afterward to restart or continue the conflict.</li></ul>"
+      },
+      {
+       "id": "ALC-07",
+       "t": "Alliances During an Active KOS",
+       "b": "<ul><li>A KOS applies <strong>ONLY</strong> to the two gangs officially listed.</li><li>Your ally does <strong>NOT</strong> inherit your KOS.</li><li>Allies must follow normal interaction requirements.</li><li>Allies may assist during an active KOS scene involving their alliance.</li><li>Allies cannot independently hunt, target, or attack the opposing KOS gang without proper interaction.</li></ul>",
+       "f": "warn"
+      },
+      {
+       "id": "ALC-09",
+       "t": "Alliances During an Active NCO",
+       "b": "<ul><li>Alliances cannot be used to bypass an NCO.</li><li>Allies cannot bait, antagonize, threaten, follow, or target the opposing gang on your behalf.</li><li>Allies cannot intentionally create scenes to work around an NCO.</li></ul>",
+       "f": "no"
+      }
+     ]
+    },
+    {
+     "id": "orders",
+     "name": "KOS & NCO Orders",
+     "emoji": "💀",
+     "prefix": "KOS",
+     "rules": [
+      {
+       "id": "KOS-01",
+       "t": "What a KOS Is",
+       "b": "<p>A KOS removes the normal <strong>30-second interaction</strong> requirement between two approved gangs.</p>"
+      },
+      {
+       "id": "KOS-02",
+       "t": "Approval",
+       "b": "<ul><li>Both gang bosses must agree.</li><li>Illegal Management must approve it.</li></ul>"
+      },
+      {
+       "id": "KOS-04",
+       "t": "KOS Duration",
+       "b": "<p><strong>24–48 hours.</strong></p>"
+      },
+      {
+       "id": "KOS-06",
+       "t": "Everything Else Still Applies",
+       "b": "<p>All other MSRP rules still apply during an active KOS.</p>",
+       "f": "warn"
+      },
+      {
+       "id": "NCO-01",
+       "t": "What an NCO Is",
+       "b": "<p>An NCO means <strong>no in-city interaction</strong> between the listed gangs.</p>"
+      },
+      {
+       "id": "NCO-07",
+       "t": "What No Contact Means",
+       "b": "<p>Do not approach, antagonize, follow, target, or use others to bypass it.</p>",
+       "f": "warn"
+      },
+      {
+       "id": "NCO-08",
+       "t": "NCO Duration",
+       "b": "<p><strong>48 hours – 1 week.</strong></p>"
+      },
+      {
+       "id": "NCO-03",
+       "t": "One-Sided Requests",
+       "b": "<p>One-sided NCO requests require valid evidence and management approval.</p>"
+      },
+      {
+       "id": "NCO-10",
+       "t": "Violations",
+       "b": "<p>Violations may result in gang strikes or further action.</p>",
+       "f": "no"
+      }
+     ]
+    },
+    {
+     "id": "operations",
+     "name": "Crime & Operations",
+     "emoji": "💰",
+     "prefix": "ROB",
+     "rules": [
+      {
+       "id": "ROB-01",
+       "t": "Interactions",
+       "b": "<p>All robberies require a valid roleplay reason. You cannot rob someone simply because they exist near you. There must be prior interaction, narrative context, or IC justification.</p>"
+      },
+      {
+       "id": "ROB-02",
+       "t": "Kidnapping",
+       "b": "<p>Kidnapping another player requires a strong IC reason, consent from an admin if the scene will last more than <strong>10 minutes</strong>, and there must be at least 2 more people than the other party. For example, to kidnap 3 people you must have at least 5 allies.</p>"
+      },
+      {
+       "id": "ROB-03",
+       "t": "Random Deathmatch (RDM)",
+       "f": "warn",
+       "b": "<p>Players must give a clear verbal demand before initiating a robbery. Shooting without demands is considered RDM (random deathmatch).</p>"
+      },
+      {
+       "id": "ROB-04",
+       "t": "Repeated Targeting",
+       "f": "no",
+       "b": "<p>You may not rob the same player more than once every <strong>2 hours</strong>. Repeated targeting of the same individual is considered harassment.</p>"
+      },
+      {
+       "id": "FRE-01",
+       "t": "Freelancer Rules",
+       "b": "<p>Players who engage in criminal activity without a registered gang are considered freelance criminals and are still bound by all criminal RP rules in this document.</p>"
+      },
+      {
+       "id": "FRE-02",
+       "t": "Freelancer Restrictions",
+       "b": "<p>Freelancers may not claim territory, operate drug networks above a small personal scale, or commit organized heists of 3+ people without aligning with a registered gang.</p>"
+      },
+      {
+       "id": "FRE-03",
+       "t": "Operating in Gang Territory",
+       "b": "<p>Freelancers operating in a gang’s claimed territory must either pay tribute (IC), seek permission, or be prepared for IC consequences from that gang.</p>"
+      },
+      {
+       "id": "DRG-01",
+       "t": "Drug Locations Are NOT Safe Zones",
+       "b": "<p>Drug locations (weed, lean, etc.) are not safe zones and should not be AFK’d at. Robbing, taxing, and interactions are allowed inside and around drug locations, following the <strong>30-second interaction</strong> rule.</p>"
+      },
+      {
+       "id": "DRG-02",
+       "t": "Interactions at the Drug Location",
+       "b": "<p>Interactions at drug locations should follow the same rules as any interaction. Interactions should last at least <strong>30 seconds</strong> to be valid RP.</p>"
+      },
+      {
+       "id": "CLE-01",
+       "t": "Corrupt Law RP",
+       "b": "<p>Corrupt law enforcement roleplay is permitted but must be approved and monitored by both the Illegal Team and the LEO division. A player cannot roleplay as corrupt without applying through the correct channels.</p>"
+      },
+      {
+       "id": "CLE-02",
+       "t": "Police Informant RP",
+       "b": "<p>Informant RP (a gang member feeding intel to law enforcement) must be approved IC via a storyline thread. Random informant claims as a justification for OOC actions are not valid.</p>"
+      },
+      {
+       "id": "CLE-03",
+       "t": "Unauthorized Corruption",
+       "f": "no",
+       "b": "<p>Any LEO found accepting bribes or leaking IC police information outside of approved corrupt RP will face division-level punishment, not just server punishment.</p>"
+      }
+     ]
+    },
+    {
+     "id": "compounds",
+     "name": "Compounds & Territory",
+     "emoji": "🏚️",
+     "prefix": "CMP",
+     "rules": [
+      {
+       "id": "CMP-01",
+       "t": "Three Warnings Before Shooting",
+       "b": "<p>There must be <strong>3 warnings to leave</strong> before shooting on a compound. Keep in mind the reverse.</p><p>If someone is actively trying to leave a compound after being warned, this rule is void.</p>",
+       "f": "warn"
+      },
+      {
+       "id": "CMP-05",
+       "t": "No Shooting on Compound",
+       "b": "<p>No shooting on active gang compounds.</p>",
+       "f": "warn"
+      },
+      {
+       "id": "CMP-03",
+       "t": "No Running Into Compounds",
+       "b": "<p>No running into compounds during an active scene.</p>",
+       "f": "warn"
+      },
+      {
+       "id": "CMP-02",
+       "t": "Selling Drugs Within a Compound",
+       "f": "warn",
+       "b": "<p>Selling within a compound is not permitted. This allows RP with other gangs and law enforcement.</p>"
+      },
+      {
+       "id": "CMP-04",
+       "t": "Compound Interactions",
+       "f": "warn",
+       "b": "<p>Compounds are reverse-RDM. Interactions leading to shooting should not be done within compounds.</p>"
+      }
+     ]
+    },
+    {
+     "id": "strikes",
+     "name": "Gang Strikes",
+     "emoji": "⚠️",
+     "prefix": "STR",
+     "rules": [
+      {
+       "id": "STR-01",
+       "t": "What a Gang Strike Is",
+       "b": "<p>Gang strikes are formal disciplinary actions issued by the MSRP Illegal Team with <strong>Illegal Management approval</strong>.</p><p>Strikes are meant to correct ongoing issues while holding gang leadership accountable.</p>"
+      },
+      {
+       "id": "STR-02",
+       "t": "Grounds for a Strike",
+       "b": "<ul><li>Repeated compound rule violations.</li><li>Gang baiting or PD baiting.</li><li>Leadership failing to correct repeated member behavior.</li><li>Poor gang health, activity, recruitment, or economy after multiple warnings.</li><li>Repeated NCOs involving harassment, forced scenes, toxicity, or similar concerns.</li><li>Severe behavior may result in a strike without prior warnings.</li></ul>",
+       "f": "warn"
+      },
+      {
+       "id": "STR-08",
+       "t": "Strike Progression",
+       "b": "<ul><li><strong>Warning #1</strong> — leadership is notified and expected to correct the issue.</li><li><strong>Warning #2</strong> — continued issues may result in formal strike progression.</li><li><strong>Strike #1 · Probation</strong> — the gang is placed under increased Illegal Team supervision.</li><li><strong>Strike #2 · Second Penalty</strong> — continued violations place the panel at serious risk of disbandment.</li><li><strong>Strike #3 · Disbandment</strong> — the gang panel may be removed and the compound released.</li></ul>"
+      },
+      {
+       "id": "STR-09",
+       "t": "Important Clarifications",
+       "b": "<ul><li>Strikes do not have to be for the same violation.</li><li>Strikes apply to the overall gang panel, not one specific offense.</li><li>Severity, evidence, previous warnings, and panel history may be considered.</li><li>All official strikes require Illegal Management approval.</li></ul>"
+      }
+     ]
+    }
+   ],
+   "emoji": "😈"
+  },
+  {
+   "id": "updates",
+   "name": "Rulebook Updates",
+   "icon": "updates",
+   "blurb": "Below is a log of updates made to the rulebook.",
+   "changelog": [
+    {
+     "date": "08/31/2026",
+     "title": "Staying in character is now its own rule",
+     "adds": [
+      "<strong>GEN-16 · No Going OOC — Stay in Character</strong> added to General Rules. Breaking character mid-scene, or using OOC chat to get out of what is happening to your character, is FailRP."
+     ]
+    },
+    {
+     "date": "08/31/2026",
+     "title": "Illegal rules replaced with the condensed Illegal Team documents",
+     "adds": [
+      "Alliances, KOS, NCO, baiting, compound rules and the gang strike system now follow the current Illegal Team documents, in their shortened form.",
+      "Duplicates removed across the Illegal section — where the same rule was written twice, the newer wording stands and keeps the original rule ID.",
+      "Rules withdrawn: BAI-02, ALL-02, ALL-03, ALC-02, ALC-04, ALC-06, ALC-08, ALC-10, KOS-03, KOS-05, NCO-02, NCO-04, NCO-05, NCO-06, NCO-09, STR-03, STR-04, STR-05, STR-06, STR-07, STR-10. Each is either covered by a rule above or has moved out of the public rulebook.",
+      "Every rule that survived kept its ID, so existing reports and links still resolve."
+     ]
+    },
+    {
+     "date": "08/31/2026",
+     "title": "Rulebook restructured",
+     "adds": [
+      "The <strong>Staff</strong> section has been removed from the public rulebook.",
+      "<strong>Illegal</strong> reorganised from 13 pages down to 7: Conduct &amp; Standards, Combat &amp; Engagement, Alliances, KOS &amp; NCO Orders, Crime &amp; Operations, Compounds &amp; Territory, and Gang Strikes.",
+      "Baiting now sits with Combat &amp; Engagement; the two alliance pages are merged; KOS and NCO share one page; robbery, freelance, drugs and corrupt LEO rules are together under Crime &amp; Operations.",
+      "<strong>No rule text changed and no rule ID changed</strong> — anything already cited still resolves."
+     ]
+    },
+    {
+     "date": "08/31/2026",
+     "title": "Illegal Team: alliances, KOS/NCO, baiting, and the gang strike system",
+     "adds": [
+      "<strong>Alliance Rules & Clarification</strong> — new page covering the One Ally Rule, factions/sectors, the purpose of an alliance, combined scenes, intervening in active vs. concluded scenes, and how alliances work during an active KOS or NCO.",
+      "<strong>Gang & PD Baiting</strong> — new page. Both are grounds for a gang strike, and PD/Sheriff stations are treated as a compound for gang rules.",
+      "<strong>KOS — Kill on Sight</strong> — new page. Requirements, how to request one, 24–48 hour duration, leadership responsibility, and how reports are handled during an active KOS.",
+      "<strong>NCO — No Contact Order</strong> — new page. Grounds, one-sided and mutual requests, mediation, what “no contact” means, 48 hour–1 week duration, and OOC harassment going to Culture Team instead.",
+      "<strong>Gang Strike System</strong> — new page. Every ground for a strike, management discretion on warnings, and the full progression from Warning #1 through Strike #3 panel disbandment.",
+      "<strong>No Shooting on Compound</strong> — added to the Compounds page."
+     ]
+    },
+    {
+     "date": "07/24/2026",
+     "title": "Combat, interactions, and exploiting clarified",
+     "changes": [
+      {
+       "was": "No shooting from inside a vehicle without prior RP justification or during an active, declared pursuit/conflict. Drive-bys must be part of an ongoing conflict, not a surprise initiation. A drive-by you cannot return to a scene; it must be a genuine drive-by.",
+       "now": "No shooting from inside a vehicle without prior RP justification or during an active, declared pursuit/conflict. Drive-bys must be part of an ongoing conflict, not a surprise initiation. A drive-by you cannot return to a scene; it must be a genuine drive-by. <strong>Shooting from BPs is prohibited.</strong>"
+      },
+      {
+       "was": "Interactions must consist of: outside of a car to start; a 30-second interaction; a valid RP reason; at least 15 minutes between interactions with the same people.",
+       "now": "Interactions must consist of: outside of a car to start; a 30-second interaction; <strong>guns can be out during the 30-second interaction, however guns cannot be pointed at someone</strong>; a valid RP reason; at least 15 minutes between interactions with the same people."
+      },
+      {
+       "was": "Using any modifications, trainers, exploits, or third-party tools that provide an unfair advantage results in a permanent ban. Report any exploits found to staff immediately. Assisting, covering for, or defending a player who is using cheats will result in punishment.",
+       "now": "…as before, plus: <strong>This includes using no props, no bushes, or any similar modifications that alter in-game objects to gain an unfair advantage.</strong>"
+      }
+     ]
+    },
+    {
+     "date": "07/12/2026",
+     "title": "Staff rules added",
+     "adds": [
+      "<strong>Voice Chat</strong> — Be inside a staff VC while within city. However, do not use this as a form of metagaming while participating in RP. Mute and deafen yourself.",
+      "<strong>Switching Panels</strong> — Whenever switching between panels keep NLR in mind; these lives are kept separate and you will not have the same knowledge between the two characters. Your gang character should NOT benefit your PD character and vice versa.",
+      "<strong>Exploiting</strong> — Using anything that exploits bugs, <code>/reset</code>, etc. is strictly prohibited.",
+      "<strong>Content with perms/staff menu</strong> — Using in-city staff permissions or menus while streaming or posting content is prohibited."
+     ]
+    },
+    {
+     "date": "07/10/2026",
+     "title": "Kidnapping requirements changed",
+     "changes": [
+      {
+       "was": "Kidnapping another player requires a strong IC reason, consent from an admin if the scene will last more than <strong>15 minutes</strong>, and must not be used as a vehicle for OOC harassment. There must be at least 3 allies or gang members to kidnap an individual.",
+       "now": "Kidnapping another player requires a strong IC reason, consent from an admin if the scene will last more than <strong>10 minutes</strong>, and there must be at least 2 more people than the other party. For example, to kidnap 3 people you must have at least 5 allies."
+      }
+     ]
+    },
+    {
+     "date": "07/09/2026",
+     "title": "Creation of a new rulebook",
+     "adds": [
+      "Creation of a new rulebook. The original rulebook was used as an outline."
+     ]
+    }
+   ],
+   "emoji": "⬆️"
+  }
+ ],
+ "markers": [
+  {
+   "id": "ok",
+   "label": "Expected",
+   "emoji": "✅",
+   "tone": "green"
+  },
+  {
+   "id": "warn",
+   "label": "Warning",
+   "emoji": "🟡",
+   "tone": "amber"
+  },
+  {
+   "id": "no",
+   "label": "Prohibited",
+   "emoji": "❌",
+   "tone": "red"
+  }
+ ],
+ "editors": [
+  {
+   "name": "Morgan",
+   "role": "Server Owner",
+   "level": "owner",
+   "sections": [
+    "*"
+   ],
+   "granted": true,
+   "locked": true,
+   "addedAt": "2026-08-31T23:38:08.616Z"
+  }
+ ],
+ "audit": [],
+ "backups": []
+}

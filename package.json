@@ -1,0 +1,17 @@
+{
+  "name": "mainstreet-rulebook",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Mainstreet RP rulebook — a single self-contained page with search, rule IDs, in-page editing and an audit log.",
+  "scripts": {
+    "build": "node tools/build.js",
+    "check": "node tools/check.js",
+    "extract": "node tools/extract.js",
+    "dupes": "node tools/dupecheck.js",
+    "prepublishOnly": "node tools/check.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}

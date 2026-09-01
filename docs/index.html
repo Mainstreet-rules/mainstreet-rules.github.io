@@ -1,0 +1,2920 @@
+<title>Mainstreet RP Rulebook</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128658;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style id="rb-style">
+  :root{
+    --ink:#050706;
+    --panel:#0b100d;
+    --panel-2:#0f1712;
+    --raise:#131c16;
+    --line:#1d2a22;
+    --line-soft:#141d18;
+    --text:#e3ece5;
+    --text-dim:#c3d3c8;
+    --muted:#8ba295;
+
+    --rs:1;              /* reading scale, set by the Aa button */
+    --emoji:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+    --green:#3ddc77;
+    --green-deep:#1f8b4c;
+    --green-wash:rgba(61,220,119,.10);
+    --amber:#e3b341;
+    --red:#e5534b;
+
+    --sans:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+    --cond:"IBM Plex Sans Condensed","IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+
+    --nav-w:288px;
+    --pad:clamp(20px,4vw,56px);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  img,svg{display:block;max-width:100%}
+
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--green);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  :focus-visible{outline:2px solid var(--green);outline-offset:2px;border-radius:2px}
+  ::selection{background:rgba(61,220,119,.28);color:#fff}
+
+  /* ---------- shell ---------- */
+
+  .shell{display:grid;grid-template-columns:var(--nav-w) minmax(0,1fr);min-height:100vh}
+
+  /* ---------- sidebar ---------- */
+
+  .nav{
+    position:sticky;top:0;height:100vh;
+    display:flex;flex-direction:column;
+    background:var(--panel);
+    border-right:1px solid var(--line);
+    overflow:hidden;
+  }
+
+  .brand{
+    display:flex;align-items:center;gap:12px;
+    width:100%;padding:22px 20px 18px;
+    border:0;border-bottom:1px solid var(--line-soft);
+    background:none;color:inherit;font:inherit;cursor:pointer;
+  }
+  .brand:hover .brand-name{color:var(--green)}
+
+  .sigil{
+    width:34px;height:34px;flex:none;display:grid;place-items:center;
+    border:1px solid var(--green-deep);
+    background:linear-gradient(160deg,rgba(61,220,119,.18),transparent 70%);
+    color:var(--green);
+  }
+
+  .brand-txt{text-align:left}
+  .brand-name{
+    display:block;font-family:var(--cond);font-weight:700;font-size:19px;
+    letter-spacing:.02em;line-height:1.1;text-transform:uppercase;
+    transition:color .12s ease;
+  }
+  .brand-sub{
+    display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);margin-top:3px;
+  }
+
+  .nav-scroll{
+    flex:1;overflow-y:auto;padding:14px 12px 20px;
+    scrollbar-width:thin;scrollbar-color:var(--line) transparent;
+  }
+
+  .nav-label{
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);padding:8px 10px 10px;
+  }
+
+  .nav-item{
+    display:flex;align-items:center;gap:11px;width:100%;
+    padding:9px 10px;border:0;border-left:2px solid transparent;
+    background:none;color:var(--text-dim);font:inherit;font-size:14.5px;
+    text-align:left;cursor:pointer;
+    transition:background .12s ease,color .12s ease;
+  }
+  .nav-item:hover{background:var(--panel-2);color:var(--text)}
+  .nav-item[aria-current="page"]{
+    background:var(--green-wash);border-left-color:var(--green);
+    color:#fff;font-weight:500;
+  }
+  .nav-item .ico{flex:none;color:var(--green);opacity:.85}
+  .nav-item[aria-current="page"] .ico{opacity:1}
+  .nav-item .n{flex:1;min-width:0}
+
+  .nav-sub{
+    display:flex;align-items:center;gap:9px;width:100%;
+    padding:7px 12px 7px 24px;
+    border:0;border-left:2px solid var(--line-soft);
+    background:none;color:var(--muted);font:inherit;font-size:13.5px;
+    text-align:left;cursor:pointer;line-height:1.4;
+  }
+  .nav-sub:hover{color:var(--text);background:var(--panel-2);border-left-color:var(--green-deep)}
+
+  .tick{
+    width:15px;height:15px;flex:none;border:1px solid var(--line);
+    display:grid;place-items:center;color:transparent;font-size:10px;
+  }
+  .tick.on{border-color:var(--green-deep);background:var(--green-wash);color:var(--green)}
+
+  .nav-foot{
+    border-top:1px solid var(--line-soft);padding:14px 20px 18px;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--muted);
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .meter{height:3px;background:var(--line-soft);overflow:hidden}
+  .meter i{display:block;height:100%;background:var(--green);width:0;transition:width .35s ease}
+
+  /* ---------- top bar ---------- */
+
+  .main{min-width:0;display:flex;flex-direction:column}
+
+  .bar{
+    position:sticky;top:0;z-index:20;
+    display:flex;align-items:center;gap:14px;
+    padding:12px var(--pad);
+    background:rgba(5,7,6,.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+
+  .burger{
+    display:none;width:38px;height:38px;flex:none;
+    border:1px solid var(--line);background:var(--panel);color:var(--text);cursor:pointer;
+  }
+
+  .search{position:relative;flex:1;max-width:520px}
+  .search .mag{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+  .search input{
+    width:100%;padding:10px 74px 10px 38px;
+    background:var(--panel);border:1px solid var(--line);color:var(--text);
+    font:inherit;font-size:14.5px;
+  }
+  .search input::placeholder{color:var(--muted)}
+  .search input:focus{border-color:var(--green-deep);outline:none}
+  .kbd{
+    position:absolute;right:10px;top:50%;transform:translateY(-50%);
+    font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--muted);
+    border:1px solid var(--line);padding:2px 6px;pointer-events:none;
+  }
+
+  .bar-right{margin-left:auto;display:flex;align-items:center;gap:14px}
+  .bar-stat{
+    font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);white-space:nowrap;
+  }
+  .bar-stat b{color:var(--green);font-weight:500}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 14px;border:1px solid var(--line);background:var(--panel);
+    color:var(--text);font:inherit;font-size:13.5px;cursor:pointer;white-space:nowrap;
+    transition:border-color .14s ease,background .14s ease,color .14s ease;
+  }
+  .btn:hover{border-color:var(--green-deep);background:var(--panel-2)}
+  .btn.primary{background:var(--green);border-color:var(--green);color:#04140a;font-weight:600}
+  .btn.primary:hover{background:#4ff089;border-color:#4ff089}
+  .btn.ghost{background:none}
+  .btn.danger:hover{border-color:rgba(229,83,75,.6);color:var(--red)}
+  .btn[disabled]{opacity:.5;cursor:not-allowed}
+  .btn.hide{display:none}
+
+  .size-btn{padding:7px 12px;line-height:1;font-family:var(--cond);letter-spacing:.02em}
+  .size-btn span{font-size:.82em}
+  body.rs-2{--rs:1.13}
+  body.rs-3{--rs:1.28}
+  body.rs-2 .size-btn span,body.rs-3 .size-btn span{font-size:1em}
+  body.rs-3 .size-btn{font-size:16px}
+
+  /* ---------- page ---------- */
+
+  .page{padding:0 var(--pad) 96px;flex:1}
+  .wrap{max-width:min(70ch,100%);margin:0 auto}
+  .wrap.wide{max-width:min(98ch,100%)}
+
+  .eyebrow{
+    font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--green);display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  h1{
+    font-family:var(--cond);font-weight:700;
+    font-size:clamp(34px,5.4vw,54px);line-height:1.02;letter-spacing:-.01em;
+    text-transform:uppercase;text-wrap:balance;margin:16px 0 0;
+  }
+  h2{
+    font-family:var(--cond);font-weight:600;font-size:22px;letter-spacing:.04em;
+    text-transform:uppercase;text-wrap:balance;margin:0;color:#fff;
+  }
+  .lede{font-size:calc(18.5px * var(--rs));color:var(--text-dim);margin:18px 0 0;max-width:60ch;line-height:1.6}
+
+  /* ---------- home ---------- */
+
+  .hero{padding:clamp(44px,7vw,84px) 0 40px}
+  .stamp{
+    display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);
+    padding:6px 12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:26px;
+  }
+  .stamp .dot{width:6px;height:6px;background:var(--green);border-radius:50%}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:14px;margin-top:38px}
+  .card{
+    display:flex;align-items:flex-start;gap:14px;width:100%;padding:20px;
+    background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--green-deep);
+    color:inherit;font:inherit;text-align:left;cursor:pointer;
+    transition:background .14s ease,border-color .14s ease,transform .14s ease;
+  }
+  .card:hover{background:var(--panel-2);border-left-color:var(--green);transform:translateY(-1px)}
+  .card .ico{flex:none;color:var(--green);margin-top:2px}
+  .card h3{
+    font-family:var(--cond);font-weight:600;font-size:19px;letter-spacing:.03em;
+    text-transform:uppercase;margin:0 0 5px;color:#fff;
+  }
+  .card p{margin:0;font-size:15px;color:var(--text-dim);line-height:1.6}
+  .card .count{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--green);display:block;margin-top:10px}
+
+  .quick{margin-top:56px;border:1px solid var(--line);background:var(--panel);padding:24px}
+  .quick h2{font-size:18px;margin-bottom:6px}
+  .quick .sub{font-size:13.5px;color:var(--muted);margin:0 0 18px}
+  .quick ol{margin:0;padding-left:22px;display:grid;gap:13px;color:var(--text-dim);font-size:calc(16px * var(--rs));line-height:1.65}
+  .quick ol b{color:var(--text);font-weight:500}
+
+  .legend{
+    margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+    padding-top:18px;border-top:1px solid var(--line-soft);
+  }
+  .legend .txt{font-size:13.5px;color:var(--muted);margin-right:12px}
+
+  /* ---------- section page ---------- */
+
+  .sec-head{padding:clamp(36px,6vw,64px) 0 30px;border-bottom:1px solid var(--line)}
+  .group{padding-top:56px;scroll-margin-top:78px}
+  .group-head{
+    display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+    padding-bottom:16px;margin-bottom:6px;border-bottom:1px solid var(--line-soft);
+  }
+  .group-head .gid{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);white-space:nowrap}
+
+  /* emoji glyphs */
+  .ico{font-family:var(--emoji);font-size:16px;line-height:1;font-style:normal}
+  .ico.sm{font-size:13.5px}
+  .ico.big{font-size:26px}
+  .ico.h1{font-size:.78em;margin-right:.32em;vertical-align:.04em}
+  .ico.h2{font-size:1em;margin-right:.45em}
+  .card .ico.big{margin-top:0}
+
+  .rule{padding:30px 0;border-bottom:1px solid var(--line-soft);scroll-margin-top:86px}
+  .rule:target{
+    background:linear-gradient(90deg,var(--green-wash),transparent 70%);
+    box-shadow:-14px 0 0 0 var(--green-wash),-16px 0 0 0 var(--green);
+  }
+  .rule-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .rid{
+    font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.1em;
+    color:var(--green);border:1px solid var(--green-deep);padding:2px 7px;flex:none;
+  }
+  .rule h4{
+    font-family:var(--sans);font-weight:600;font-size:calc(18.5px * var(--rs));line-height:1.35;margin:0;
+    color:#fff;flex:1;min-width:200px;text-wrap:balance;
+  }
+  .rule .body{margin:14px 0 0;color:var(--text-dim);font-size:calc(16.5px * var(--rs));line-height:1.72}
+  .rule .body p{margin:0 0 15px}
+  .rule .body p:last-child{margin-bottom:0}
+  .rule .body ul{margin:0 0 15px;padding-left:22px;display:grid;gap:10px}
+  .rule .body ul:last-child{margin-bottom:0}
+  .rule .body strong{color:var(--text);font-weight:600}
+  .rule .body em{color:var(--text)}
+  .rule .body code{
+    font-family:var(--mono);font-size:13.5px;color:var(--green);
+    background:var(--raise);padding:1px 5px;border:1px solid var(--line);
+  }
+
+  .flag{
+    font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    padding:3px 8px;border:1px solid;white-space:nowrap;
+  }
+  .flag{display:inline-flex;align-items:center;gap:5px}
+  .flag .ico{font-size:11px}
+  .tone-green{color:var(--green);border-color:var(--green-deep);background:var(--green-wash)}
+  .tone-amber{color:var(--amber);border-color:rgba(227,179,65,.45);background:rgba(227,179,65,.07)}
+  .tone-red{color:var(--red);border-color:rgba(229,83,75,.5);background:rgba(229,83,75,.08)}
+  .tone-grey{color:var(--text-dim);border-color:var(--line);background:var(--raise)}
+  .tone-none{color:var(--muted);border-color:var(--line);background:none}
+
+  /* marker picker inside the rule form */
+  .picks{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .pick{
+    font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    padding:6px 11px;border:1px solid;cursor:pointer;background:none;opacity:.55;
+    transition:opacity .12s ease,box-shadow .12s ease;
+  }
+  .pick:hover{opacity:1}
+  .pick.on{opacity:1;box-shadow:inset 0 0 0 1px currentColor}
+
+  /* marker manager */
+  .mk-row{gap:10px}
+  .tones{display:flex;gap:6px;flex:none}
+  .tone-dot{
+    width:20px;height:20px;border:1px solid;cursor:pointer;padding:0;
+    opacity:.45;transition:opacity .12s ease;
+  }
+  .tone-dot:hover{opacity:.85}
+  .tone-dot.on{opacity:1;box-shadow:inset 0 0 0 2px var(--panel)}
+  .mk-use{font-family:var(--mono);font-size:10.5px;color:var(--muted);white-space:nowrap;align-self:center}
+
+  .link-btn{
+    flex:none;width:28px;height:28px;display:grid;place-items:center;
+    border:1px solid transparent;background:none;color:var(--muted);cursor:pointer;
+    opacity:0;transition:opacity .12s ease,color .12s ease;
+  }
+  .rule:hover .link-btn,.link-btn:focus-visible{opacity:1}
+  .link-btn:hover{color:var(--green);border-color:var(--line)}
+  .link-btn.done{opacity:1;color:var(--green)}
+
+  /* ---------- footer nav ---------- */
+
+  .sec-foot{margin-top:56px;display:flex;flex-direction:column;gap:22px}
+  .ack{
+    display:flex;align-items:center;gap:13px;padding:16px 18px;
+    border:1px solid var(--line);background:var(--panel);
+    color:var(--text-dim);font:inherit;font-size:14.5px;cursor:pointer;text-align:left;
+    transition:border-color .14s ease,background .14s ease;
+  }
+  .ack:hover{border-color:var(--green-deep);background:var(--panel-2)}
+  .ack .box{width:20px;height:20px;flex:none;border:1px solid var(--line);display:grid;place-items:center;color:transparent}
+  .ack.on{color:var(--text)}
+  .ack.on .box{border-color:var(--green);background:var(--green);color:var(--ink)}
+
+  .pager{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .pager button{
+    display:flex;flex-direction:column;gap:4px;padding:16px 18px;
+    background:var(--panel);border:1px solid var(--line);color:var(--text);
+    font:inherit;cursor:pointer;transition:border-color .14s ease,background .14s ease;
+  }
+  .pager button:hover{border-color:var(--green-deep);background:var(--panel-2)}
+  .pager .dir{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .pager .ttl{font-family:var(--cond);font-size:17px;letter-spacing:.03em;text-transform:uppercase}
+  .pager .next{text-align:right;align-items:flex-end}
+
+  /* ---------- search ---------- */
+
+  .results-head{padding:36px 0 8px}
+  .hit{
+    display:block;width:100%;text-align:left;background:none;border:0;
+    border-bottom:1px solid var(--line-soft);padding:20px 0;
+    color:inherit;font:inherit;cursor:pointer;
+  }
+  .hit:hover .h-title{color:var(--green)}
+  .h-crumb{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .h-title{font-weight:600;font-size:16.5px;color:#fff;margin-bottom:6px}
+  .h-snip{font-size:calc(15.5px * var(--rs));line-height:1.6;color:var(--text-dim)}
+  mark{background:rgba(61,220,119,.22);color:#fff;padding:0 2px}
+
+  /* ---------- changelog ---------- */
+
+  .log{padding-top:34px;display:grid}
+  .log-entry{display:grid;grid-template-columns:132px 1fr;gap:24px;padding:26px 0;border-bottom:1px solid var(--line-soft)}
+  .log-date{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--green);padding-top:2px}
+  .log-date small{display:block;color:var(--muted);letter-spacing:.14em;font-size:10px;text-transform:uppercase;margin-top:5px}
+  .log-entry h4{margin:0 0 12px;font-size:17.5px;font-weight:600;color:#fff}
+  .log-entry ul{margin:0 0 14px;padding-left:20px;display:grid;gap:11px;color:var(--text-dim);font-size:calc(16px * var(--rs));line-height:1.65}
+  .log-entry ul:last-child{margin-bottom:0}
+  .diff{display:grid;gap:1px;margin:0 0 14px;border:1px solid var(--line);background:var(--line)}
+  .diff > div{background:var(--panel);padding:15px 17px;font-size:calc(15.5px * var(--rs));line-height:1.62;color:var(--text-dim)}
+  .diff .lbl{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+    display:block;margin-bottom:6px;
+  }
+  .diff .was{color:var(--muted)}
+  .diff .was .lbl{color:var(--muted)}
+  .diff .now .lbl{color:var(--green)}
+
+  .scrim{display:none}
+
+  /* ---------- editor ---------- */
+
+  .editbar{
+    position:sticky;top:var(--barH,63px);z-index:19;
+    display:none;align-items:center;gap:14px;flex-wrap:wrap;
+    padding:11px var(--pad);
+    background:var(--panel-2);
+    border-bottom:1px solid var(--green-deep);
+  }
+  body.editing .editbar{display:flex}
+
+  .editbar .tag{
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--green);border:1px solid var(--green-deep);padding:3px 9px;
+  }
+  .editbar .note{font-size:13.5px;color:var(--muted)}
+  .editbar .grow{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .dot-dirty{
+    width:7px;height:7px;border-radius:50%;background:var(--amber);
+    display:none;
+  }
+  body.dirty .dot-dirty{display:block}
+
+  .ed-only{display:none}
+  body.editing .ed-only{display:inline-flex}
+  body.editing .rule:hover{background:rgba(61,220,119,.03)}
+
+  .rule-tools{display:none;gap:4px;flex:none}
+  body.editing .rule-tools{display:flex}
+  .icon-btn{
+    width:28px;height:28px;display:grid;place-items:center;
+    border:1px solid var(--line);background:var(--panel);color:var(--muted);
+    cursor:pointer;font:inherit;font-size:12px;line-height:1;
+  }
+  .icon-btn:hover{color:var(--green);border-color:var(--green-deep)}
+  .icon-btn.del:hover{color:var(--red);border-color:rgba(229,83,75,.5)}
+
+  .form{display:grid;gap:12px;margin-top:14px;padding:16px;background:var(--panel);border:1px solid var(--green-deep)}
+  .form label{
+    display:block;font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:6px;
+  }
+  .form input[type=text],.form textarea,.form select{
+    width:100%;padding:9px 11px;background:var(--ink);border:1px solid var(--line);
+    color:var(--text);font:inherit;font-size:15px;
+  }
+  .form textarea{min-height:150px;font-family:var(--mono);font-size:13.5px;line-height:1.6;resize:vertical}
+  .form input:focus,.form textarea:focus,.form select:focus{border-color:var(--green-deep);outline:none}
+  .form .row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+  .form .row > *{flex:1;min-width:160px}
+  .form .actions{display:flex;gap:10px;justify-content:flex-end}
+  .form .hint{font-size:12.5px;color:var(--muted);margin:0}
+
+  .ed-input{
+    width:100%;padding:8px 10px;background:var(--ink);border:1px dashed var(--line);
+    color:inherit;font:inherit;
+  }
+  .ed-input:focus{border-color:var(--green-deep);border-style:solid;outline:none}
+  .ed-name{font-family:var(--cond);font-size:22px;letter-spacing:.04em;text-transform:uppercase;color:#fff;flex:1;min-width:180px}
+  .ed-emoji{width:60px;flex:none;text-align:center;font-family:var(--emoji);font-size:18px}
+  .ed-titlerow{display:flex;gap:10px;align-items:center}
+  .ed-h1{font-family:var(--cond);font-size:32px;letter-spacing:.01em;text-transform:uppercase;color:#fff}
+
+  .add-row{display:flex;gap:10px;flex-wrap:wrap;padding:26px 0 0}
+
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%);
+    z-index:100;max-width:min(560px,92vw);
+    display:none;align-items:flex-start;gap:12px;
+    padding:14px 18px;background:var(--panel-2);border:1px solid var(--line);
+    font-size:14.5px;color:var(--text);
+    box-shadow:0 10px 40px rgba(0,0,0,.6);
+  }
+  .toast.show{display:flex}
+  .toast.good{border-color:var(--green-deep)}
+  .toast.bad{border-color:rgba(229,83,75,.6)}
+  .toast .t-ico{font-family:var(--mono);color:var(--green)}
+  .toast.bad .t-ico{color:var(--red)}
+
+  .sheet{
+    position:fixed;inset:0;z-index:110;display:none;
+    align-items:center;justify-content:center;padding:20px;
+    background:rgba(0,0,0,.72);
+  }
+  .sheet.show{display:flex}
+  .sheet-inner{
+    width:min(560px,100%);background:var(--panel);border:1px solid var(--line);
+    padding:26px;display:grid;gap:16px;
+  }
+  .sheet h3{
+    font-family:var(--cond);font-size:22px;letter-spacing:.04em;text-transform:uppercase;
+    margin:0;color:#fff;
+  }
+  .sheet p{margin:0;font-size:14.5px;color:var(--text-dim)}
+
+  .bk-list{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);max-height:44vh;overflow-y:auto}
+  .bk-row{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    background:var(--panel);padding:13px 15px;
+  }
+  .bk-meta{flex:1;min-width:180px}
+  .bk-when{font-family:var(--mono);font-size:12.5px;color:var(--text)}
+  .bk-note{font-size:13px;color:var(--muted);margin-top:3px}
+  .bk-acts{display:flex;gap:8px;flex:none}
+  .bk-acts .btn{padding:6px 11px;font-size:13px}
+
+  /* admin panel */
+  .notice{
+    border:1px solid var(--line);border-left:2px solid var(--green-deep);
+    background:var(--panel);padding:16px 18px;margin-top:18px;
+  }
+  .notice p{margin:0 0 10px;font-size:calc(15px * var(--rs));color:var(--text-dim);line-height:1.6}
+  .notice p:last-child{margin-bottom:0}
+  .notice strong{color:var(--text)}
+
+  .audit{padding:18px 0;border-bottom:1px solid var(--line-soft)}
+  .audit-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .audit-who{font-weight:600;color:#fff;font-size:15.5px}
+  .audit-when{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+  .audit-note{margin-top:6px;font-size:calc(15px * var(--rs));color:var(--text-dim)}
+  .audit-list{
+    margin:10px 0 0;padding-left:20px;display:grid;gap:7px;
+    font-size:calc(15px * var(--rs));color:var(--text-dim);line-height:1.6;
+  }
+  .audit-list li::marker{color:var(--green)}
+
+  .as{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:13px;color:var(--muted);
+  }
+  .as select{
+    background:var(--ink);border:1px solid var(--line);color:var(--text);
+    font:inherit;font-size:13px;padding:5px 8px;max-width:230px;
+  }
+  .as select:focus{border-color:var(--green-deep);outline:none}
+
+  .ed-card{background:var(--panel);padding:15px 16px;display:grid;gap:12px}
+  .locked-card{border-left:2px solid var(--green);background:var(--panel-2)}
+  .ed-owner{font-weight:600;color:#fff;font-size:16px;flex:1;min-width:120px}
+  .ed-owner-role{color:var(--muted);font-size:14px;flex:1;min-width:120px}
+  .ed-perms{display:grid;gap:8px}
+  .ed-lab{
+    font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .ed-note{margin:0;font-size:13px;color:var(--muted)}
+  .ed-card .pick{font-size:10.5px;padding:5px 9px}
+  .ed-card .pick[disabled]{cursor:default}
+
+  .no-rights{
+    margin-top:20px;padding:14px 16px;border:1px dashed var(--line);
+    color:var(--muted);font-size:calc(14.5px * var(--rs));
+  }
+
+  .arch{
+    margin-top:18px;padding:13px 16px;border:1px solid;
+    font-size:calc(14.5px * var(--rs));line-height:1.55;
+  }
+  .arch strong{display:block;margin-bottom:2px}
+  .warn-arch{color:var(--amber);border-color:rgba(227,179,65,.45);background:rgba(227,179,65,.07)}
+  .ok-arch{color:var(--green);border-color:var(--green-deep);background:var(--green-wash)}
+
+  .stats{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:18px}
+  .stat{flex:1;min-width:104px;background:var(--panel);padding:16px 18px;text-align:center}
+  .stat b{display:block;font-family:var(--cond);font-size:28px;color:var(--green);line-height:1}
+  .stat span{
+    display:block;margin-top:6px;font-family:var(--mono);font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  }
+
+  .restore{
+    display:none;align-items:center;gap:14px;flex-wrap:wrap;
+    padding:12px var(--pad);background:rgba(227,179,65,.08);
+    border-bottom:1px solid rgba(227,179,65,.4);font-size:14px;color:var(--text);
+  }
+  .restore.show{display:flex}
+  .restore .grow{margin-left:auto;display:flex;gap:10px}
+
+  /* ---------- responsive ---------- */
+
+  /* ---------- phones ---------- */
+  @media (max-width:720px){
+    /* the bar cannot hold search and the buttons on one line, so give
+       search its own row rather than letting the buttons run off-screen */
+    .bar{flex-wrap:wrap;row-gap:10px;padding-top:10px;padding-bottom:10px}
+    .burger{order:1}
+    .bar-right{order:2;margin-left:auto;gap:8px}
+    .search{order:3;flex:1 1 100%;max-width:none}
+    .bar-right .btn{padding:8px 11px;font-size:13px}
+
+    .editbar{gap:10px;padding-top:10px;padding-bottom:10px}
+    .editbar .note{display:none}
+    .editbar .grow{margin-left:0;width:100%;justify-content:flex-end}
+    .as{flex:1;min-width:0}
+    .as select{width:100%;max-width:none}
+
+    h1{font-size:clamp(30px,8vw,40px)}
+    .hero{padding-top:32px}
+    .sec-head{padding-top:30px}
+    .group{padding-top:40px}
+    .rule{padding:24px 0}
+    .rule h4{min-width:0}
+
+    /* editing on a phone: give the fields and the tool row their own lines */
+    body.editing .rule h4{flex:1 1 100%;min-width:0}
+    body.editing .rule-tools{width:100%;justify-content:flex-end;margin-top:2px}
+    .group-head .ed-name{flex:1 1 100%;min-width:0}
+    .group-head .gid{width:100%}
+    .ed-titlerow{flex-wrap:wrap}
+    .ed-titlerow .ed-h1{flex:1 1 100%}
+
+    .stat{min-width:88px;padding:13px 10px}
+    .stat b{font-size:23px}
+    .ed-card .picks{gap:6px}
+    .bk-acts{width:100%;justify-content:flex-end}
+    .sheet{padding:12px;align-items:flex-start;padding-top:40px}
+    .sheet-inner{padding:20px;max-height:86vh;overflow-y:auto}
+    .audit-head{gap:4px}
+  }
+
+  @media (max-width:960px){
+    .shell{grid-template-columns:1fr}
+    .nav{position:fixed;left:0;top:0;z-index:60;width:var(--nav-w);transform:translateX(-100%);transition:transform .2s ease}
+    body.nav-open .nav{transform:none}
+    body.nav-open .scrim{display:block;position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.6);border:0}
+    .burger{display:grid;place-items:center}
+    .kbd{display:none}
+    .bar-stat{display:none}
+    .pager{grid-template-columns:1fr}
+    .log-entry{grid-template-columns:1fr;gap:10px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  }
+</style>
+
+<div class="shell">
+  <nav class="nav" id="nav" aria-label="Rulebook sections">
+    <button class="brand" id="brandBtn">
+      <span class="sigil" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2 3 6v6c0 5 3.8 8.6 9 10 5.2-1.4 9-5 9-10V6z"/>
+          <path d="M9 12.5l2.2 2.2L15.5 10"/>
+        </svg>
+      </span>
+      <span class="brand-txt">
+        <span class="brand-name">Mainstreet RP</span>
+        <span class="brand-sub">Rulebook</span>
+      </span>
+    </button>
+
+    <div class="nav-scroll" id="navScroll"></div>
+
+    <div class="nav-foot">
+      <div class="meter"><i id="meterFill"></i></div>
+      <span id="meterText">0 of 5 sections read</span>
+    </div>
+  </nav>
+
+  <div class="main">
+    <div class="bar">
+      <button class="burger" id="burger" aria-label="Open sections menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+
+      <div class="search">
+        <svg class="mag" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+        <input id="q" type="search" placeholder="Search every rule…" autocomplete="off" aria-label="Search rules">
+        <span class="kbd">/</span>
+      </div>
+
+      <div class="bar-right">
+        <span class="bar-stat"><b id="ruleCount">0</b> rules &nbsp;·&nbsp; <span id="barDate">—</span></span>
+        <button class="btn size-btn" id="sizeBtn" title="Text size" aria-label="Change text size">A<span>a</span></button>
+        <button class="btn hide" id="adminBtn">🛡️ Admin</button>
+        <button class="btn hide" id="editBtn">Edit rulebook</button>
+      </div>
+    </div>
+
+    <div class="restore" id="restoreBar">
+      <span>You have unpublished edits from an earlier session.</span>
+      <span class="grow">
+        <button class="btn" id="restoreYes">Restore them</button>
+        <button class="btn ghost" id="restoreNo">Discard</button>
+      </span>
+    </div>
+
+    <div class="editbar">
+      <span class="tag">Editing</span>
+      <label class="as">as <select id="whoAmI" aria-label="Who is editing"></select></label>
+      <span class="note">Changes stay on your screen until you publish, and publishing needs edit access from the owner.</span>
+      <span class="grow">
+        <span class="dot-dirty" title="Unpublished changes"></span>
+        <button class="btn ghost" id="backupsBtn">Backups</button>
+        <button class="btn ghost" id="exitEdit">Done</button>
+        <button class="btn primary" id="publishBtn">Publish to everyone</button>
+      </span>
+    </div>
+
+    <main class="page" id="page" tabindex="-1"></main>
+    <input type="file" id="importFile" accept=".json,application/json" hidden>
+  </div>
+</div>
+
+<button class="scrim" id="scrim" aria-label="Close sections menu"></button>
+
+<div class="toast" id="toast"><span class="t-ico" id="toastIco">•</span><span id="toastMsg"></span></div>
+
+<div class="sheet" id="sheet">
+  <div class="sheet-inner">
+    <h3 id="sheetTitle">Publish</h3>
+    <p id="sheetBody"></p>
+    <div id="sheetFields"></div>
+    <div class="form actions" style="padding:0;border:0;background:none;margin:0">
+      <button class="btn ghost" id="sheetCancel">Cancel</button>
+      <button class="btn primary" id="sheetOk">Publish</button>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="book-data">{
+ "book": [
+  {
+   "id": "general",
+   "name": "General Rules",
+   "icon": "general",
+   "blurb": "To keep the server fair, fun, and balanced for everyone, all players are expected to follow these core rules at all times.",
+   "groups": [
+    {
+     "id": "expected",
+     "name": "Expected of Everyone",
+     "prefix": "GEN",
+     "rules": [
+      {
+       "id": "GEN-01",
+       "t": "Be Respectful",
+       "f": "ok",
+       "b": "\u003cp>Treat all players and staff with respect. No discrimination, hate speech, or personal attacks.\u003c/p>"
+      },
+      {
+       "id": "GEN-02",
+       "t": "Valid Interactions",
+       "f": "ok",
+       "b": "\u003cp>For an interaction to be valid, you must complete a \u003cstrong>30-second interaction\u003c/strong> and have a proper RP reasoning for said interaction.\u003c/p>"
+      }
+     ],
+     "emoji": "✅"
+    },
+    {
+     "id": "standards",
+     "name": "Roleplay Standards",
+     "prefix": "GEN",
+     "rules": [
+      {
+       "id": "GEN-16",
+       "t": "No Going OOC — Stay in Character",
+       "f": "warn",
+       "b": "\u003cp>You are your character from the moment you spawn in to the moment you log out. Every scene is played in character, start to finish.\u003c/p>\u003cul>\u003cli>Do not break character to talk about the server, the game, restarts, or anything happening at your desk.\u003c/li>\u003cli>Do not use OOC chat to argue, explain yourself, or talk your way out of what is happening to your character.\u003c/li>\u003cli>Going OOC to get out of a robbery, an arrest, a kidnapping, or a death is \u003cstrong>FailRP\u003c/strong>, and is treated the same as combat logging.\u003c/li>\u003cli>OOC chat is for genuine emergencies only — a bug, a crash, or a scene that has to stop.\u003c/li>\u003cli>If you believe someone is breaking a rule, play the scene out and report it afterwards. Never stop the roleplay to argue the rulebook.\u003c/li>\u003c/ul>"
+      },
+      {
+       "id": "GEN-03",
+       "t": "New Life Rule (NLR)",
+       "f": "warn",
+       "b": "\u003cp>Upon being revived by EMS or respawning, your character has no memory of the events that led to their death. You may not:\u003c/p>\u003cul>\u003cli>Return to the scene of your death for \u003cstrong>15 minutes\u003c/strong>\u003c/li>\u003cli>Seek revenge on players who killed you\u003c/li>\u003cli>Use information gained before death in the new life\u003c/li>\u003c/ul>"
+      },
+      {
+       "id": "GEN-04",
+       "t": "Value of Life (VOL)",
+       "f": "warn",
+       "b": "\u003cp>\u003cstrong>Value your life.\u003c/strong> Your character should act as though their life has value. Do not rush into gunfights recklessly or act fearless when clearly outnumbered or outgunned.\u003c/p>"
+      },
+      {
+       "id": "GEN-05",
+       "t": "No Vehicle Deathmatch (VDM)",
+       "f": "warn",
+       "b": "\u003cp>Using a vehicle as a primary weapon to run over players intentionally is prohibited unless it is a direct and reasonable escalation of an active, in-character conflict.\u003c/p>"
+      },
+      {
+       "id": "GEN-06",
+       "t": "No Random Deathmatch (RDM)",
+       "f": "warn",
+       "b": "\u003cp>You must have valid, developed in-character reasoning before harming or killing another player. Killing someone because they looked at you funny is not valid RP motivation. Follow a \u003cstrong>30-second interaction\u003c/strong> rule.\u003c/p>"
+      },
+      {
+       "id": "GEN-07",
+       "t": "No Metagaming",
+       "f": "warn",
+       "b": "\u003cp>Do not use information your character would not realistically know. This includes using Discord, streams, or OOC chat to gain in-character advantages. Your character only knows what they have personally experienced in-game. This includes using out-of-city calls.\u003c/p>"
+      },
+      {
+       "id": "GEN-08",
+       "t": "Keep RP Respectful",
+       "f": "warn",
+       "b": "\u003cp>Even in conflict RP, keep it within realistic and non-personal boundaries.\u003c/p>"
+      },
+      {
+       "id": "GEN-09",
+       "t": "Separation of IC & OOC",
+       "f": "warn",
+       "b": "\u003cp>Do not bring real-life issues into roleplay or use OOC information in character.\u003c/p>"
+      },
+      {
+       "id": "GEN-10",
+       "t": "No Toxic Behavior",
+       "f": "warn",
+       "b": "\u003cp>Trolling, griefing, or intentionally ruining others’ roleplay is not allowed.\u003c/p>"
+      },
+      {
+       "id": "GEN-11",
+       "t": "Combat Logging (CL)",
+       "f": "warn",
+       "b": "\u003cp>Disconnecting from the server during an active scenario, including combat, arrests, robberies, or any ongoing conflict, is strictly forbidden. Wait for the situation to fully conclude before logging off.\u003c/p>"
+      }
+     ],
+     "emoji": "🟡"
+    },
+    {
+     "id": "zero",
+     "name": "Zero Tolerance",
+     "prefix": "GEN",
+     "rules": [
+      {
+       "id": "GEN-12",
+       "t": "No Cheating, Hacking, or Exploiting",
+       "f": "no",
+       "b": "\u003cp>Using any modifications, trainers, exploits, or third-party tools that provide an unfair advantage results in a \u003cstrong>permanent ban\u003c/strong>. Report any exploits found to staff immediately. Assisting, covering for, or defending a player who is using cheats will result in punishment.\u003c/p>\u003cp>This includes using no props, no bushes, or any similar modifications that alter in-game objects to gain an unfair advantage.\u003c/p>"
+      },
+      {
+       "id": "GEN-13",
+       "t": "No Real Money Trading",
+       "f": "no",
+       "b": "\u003cp>Selling, buying, or exchanging in-game items, currency, vehicles, properties, or any other in-game assets for real-life money is strictly forbidden.\u003c/p>"
+      },
+      {
+       "id": "GEN-14",
+       "t": "No Slurs or Hate Speech",
+       "f": "no",
+       "b": "\u003cp>Racist, sexist, homophobic, or any slurs are strictly prohibited in all forms (IC or OOC).\u003c/p>"
+      },
+      {
+       "id": "GEN-15",
+       "t": "No Promoting Other Cities",
+       "f": "no",
+       "b": "\u003cp>Promoting, advertising, or recruiting for other FiveM servers anywhere on this platform — in-game, in OOC, or via direct message — will result in an immediate ban.\u003c/p>"
+      }
+     ],
+     "emoji": "❌"
+    }
+   ],
+   "emoji": "⭐"
+  },
+  {
+   "id": "government",
+   "name": "Government",
+   "icon": "gov",
+   "blurb": "Standards for the whitelisted departments — law enforcement, mechanics, and EMS.",
+   "groups": [
+    {
+     "id": "police",
+     "name": "Police Department / Sheriff",
+     "prefix": "PD",
+     "rules": [
+      {
+       "id": "PD-01",
+       "t": "Respect",
+       "b": "\u003cp>Treat all civilians, EMS, Fire, and LEOs with respect.\u003c/p>"
+      },
+      {
+       "id": "PD-02",
+       "t": "Use of Force",
+       "b": "\u003cp>Use the minimum force necessary. Deadly force is a last resort.\u003c/p>"
+      },
+      {
+       "id": "PD-03",
+       "t": "Traffic Stops",
+       "b": "\u003cp>Explain the reason for the stop and follow proper procedures. The traffic stop needs to be valid.\u003c/p>"
+      },
+      {
+       "id": "PD-04",
+       "t": "Pursuits",
+       "b": "\u003cp>Only pursue when the suspect poses a danger or has committed a serious crime. Call for backup early.\u003c/p>"
+      },
+      {
+       "id": "PD-05",
+       "t": "Search and Seizure",
+       "b": "\u003cp>Have a valid RP reason before searching a person or vehicle. Seeing someone you dislike is not a valid reason.\u003c/p>"
+      },
+      {
+       "id": "PD-06",
+       "t": "Fair Roleplay",
+       "b": "\u003cp>Don’t abuse panel powers to win RP. Create fun scenes for everyone.\u003c/p>"
+      },
+      {
+       "id": "PD-07",
+       "t": "Evidence",
+       "b": "\u003cp>Collect evidence when applicable before making major charges. Evidence or watching the crime occur is a \u003cstrong>MUST\u003c/strong> before making an arrest.\u003c/p>"
+      },
+      {
+       "id": "PD-08",
+       "t": "Corruption",
+       "b": "\u003cp>Corruption must be approved by the Illegal Division and the Government Division.\u003c/p>"
+      }
+     ],
+     "emoji": "👮"
+    },
+    {
+     "id": "mechanic",
+     "name": "Mechanic",
+     "prefix": "MECH",
+     "rules": [
+      {
+       "id": "MECH-01",
+       "t": "Stealing Cars",
+       "f": "warn",
+       "b": "\u003cp>Stealing cars within the mechanic shop is not permitted.\u003c/p>"
+      },
+      {
+       "id": "MECH-02",
+       "t": "Loitering",
+       "f": "warn",
+       "b": "\u003cp>You should not be in the mechanic shop harassing mechanics or horseplaying. If you are not getting your car worked on, you must leave unless you are permitted to do so by a mechanic.\u003c/p>"
+      }
+     ],
+     "emoji": "🔧"
+    },
+    {
+     "id": "ems",
+     "name": "Emergency Medical Services (EMS)",
+     "prefix": "EMS",
+     "rules": [
+      {
+       "id": "EMS-01",
+       "t": "Loitering",
+       "f": "warn",
+       "b": "\u003cp>The hospital is not a meet-up spot. You should not be within or outside the hospital for more than \u003cstrong>5 minutes\u003c/strong> without a valid RP with EMS.\u003c/p>"
+      },
+      {
+       "id": "EMS-02",
+       "t": "Stealing Cars",
+       "f": "warn",
+       "b": "\u003cp>Stealing EMS vehicles is not permitted.\u003c/p>"
+      }
+     ],
+     "emoji": "🚑"
+    }
+   ],
+   "emoji": "🏛️"
+  },
+  {
+   "id": "illegal",
+   "name": "Illegal",
+   "icon": "illegal",
+   "blurb": "Gangs, freelancers, and every rule the criminal side of the city runs on. Gang leadership is responsible for ensuring all members understand and follow these rules.",
+   "groups": [
+    {
+     "id": "conduct",
+     "name": "Conduct & Standards",
+     "emoji": "🎭",
+     "prefix": "OOC",
+     "rules": [
+      {
+       "id": "OOC-01",
+       "t": "Gang Leader Responsibilities",
+       "b": "\u003cp>Gang leaders are responsible for the conduct of their members. Repeated rule violations by gang members reflect on the gang’s standing and may affect gang privileges.\u003c/p>"
+      },
+      {
+       "id": "OOC-02",
+       "t": "Disputing Illegal Division Rulings",
+       "b": "\u003cp>Disputes with Illegal Division rulings must be escalated through the official appeals process, not argued in public chats, game voice, or other player-facing channels.\u003c/p>"
+      },
+      {
+       "id": "OOC-03",
+       "t": "Out-of-Character Beef Stays Outside of RP",
+       "f": "warn",
+       "b": "\u003cp>All criminal RP must stay IC (in-character) at all times. Personal OOC (out-of-character) beef between players may not be carried into IC situations.\u003c/p>"
+      },
+      {
+       "id": "OOC-04",
+       "t": "Metagaming",
+       "f": "no",
+       "b": "\u003cp>\u003cstrong>Metagaming\u003c/strong> (using OOC information IC) is a serious violation. This includes using Discord DMs, stream-sniping, or outside knowledge to gain IC advantage.\u003c/p>"
+      },
+      {
+       "id": "OOC-05",
+       "t": "Hate Speech",
+       "f": "no",
+       "b": "\u003cp>Racism, homophobia, or real-world hate speech — even in character — is not permitted under any circumstances.\u003c/p>"
+      }
+     ]
+    },
+    {
+     "id": "combat",
+     "name": "Combat & Engagement",
+     "emoji": "🔫",
+     "prefix": "CMB",
+     "rules": [
+      {
+       "id": "CMB-01",
+       "t": "Gang War Initiation",
+       "b": "\u003cp>Gang wars and open conflict must be initiated through IC escalation — a formal declaration, an IC provocation, or documented prior beef. Cold-initiating warfare without RP buildup is not allowed.\u003c/p>"
+      },
+      {
+       "id": "CMB-02",
+       "t": "Interactions",
+       "b": "\u003cp>Interactions must consist of:\u003c/p>\u003cul>\u003cli>Must be outside of a car to start an interaction. This means you must be out of the car speaking with the other person for 30 seconds before shooting. (Unless it’s a drive-by.)\u003c/li>\u003cli>\u003cstrong>30-second interaction.\u003c/strong> You must have a conversation with another person before shooting.\u003c/li>\u003cli>Guns can be out during the 30-second interaction, however guns cannot be pointed at someone.\u003c/li>\u003cli>Must be a valid RP reason. You cannot start an interaction by saying “You looked at me funny”.\u003c/li>\u003cli>Interactions with the same people must have at least \u003cstrong>15 minutes\u003c/strong> between each interaction.\u003c/li>\u003c/ul>"
+      },
+      {
+       "id": "CMB-03",
+       "t": "Combat From Vehicles",
+       "b": "\u003cp>No shooting from inside a vehicle without prior RP justification or during an active, declared pursuit/conflict.\u003c/p>\u003cp>Drive-bys must be part of an ongoing conflict, not a surprise initiation. On a drive-by you cannot return to a scene; it must be a genuine drive-by.\u003c/p>\u003cp>Shooting out of BP vehicles is prohibited.\u003c/p>"
+      },
+      {
+       "id": "CMB-04",
+       "t": "New Life Rule",
+       "f": "warn",
+       "b": "\u003cp>After being downed or killed, a \u003cstrong>New Life Rule (NLR)\u003c/strong> applies: you forget the events leading to your death and may not return to the same scene for \u003cstrong>15 minutes\u003c/strong>.\u003c/p>"
+      },
+      {
+       "id": "CMB-05",
+       "t": "Value Your Life (VOL)",
+       "f": "warn",
+       "b": "\u003cp>\u003cstrong>Value your life.\u003c/strong> Your character should act as though their life has value. Do not rush into gunfights recklessly or act fearless when clearly outnumbered or outgunned.\u003c/p>"
+      },
+      {
+       "id": "BAI-01",
+       "t": "Gang & PD Baiting",
+       "b": "\u003cul>\u003cli>Gang baiting and PD baiting may result in a \u003cstrong>gang strike\u003c/strong>.\u003c/li>\u003cli>Do not loiter outside compounds, antagonize members or officers, or force unwanted scenes.\u003c/li>\u003cli>Context will be reviewed by Illegal Team.\u003c/li>\u003c/ul>",
+       "f": "warn"
+      }
+     ]
+    },
+    {
+     "id": "alliances",
+     "name": "Alliances",
+     "emoji": "🤝",
+     "prefix": "ALC",
+     "rules": [
+      {
+       "id": "ALC-01",
+       "t": "One Ally Rule",
+       "b": "\u003cp>Each gang may have \u003cstrong>ONE official ally\u003c/strong>.\u003c/p>\u003cul>\u003cli>Gangs cannot create extra factions, chapters, sectors, or panels to bypass the One Ally Rule.\u003c/li>\u003cli>Alliances cannot be used as unofficial extensions of your gang.\u003c/li>\u003c/ul>",
+       "f": "warn"
+      },
+      {
+       "id": "ALC-03",
+       "t": "What an Alliance Is For",
+       "b": "\u003cul>\u003cli>Alliances are meant to build the illegal economy and create RP.\u003c/li>\u003cli>Work together through trading, production, resources, and business.\u003c/li>\u003cli>Alliances are \u003cstrong>NOT\u003c/strong> an extension of your gang.\u003c/li>\u003cli>Do not use alliances to bully, target, or overpower other gangs.\u003c/li>\u003c/ul>"
+      },
+      {
+       "id": "ALL-01",
+       "t": "Alliance Balance",
+       "b": "\u003cp>Alliances that result in a single faction controlling more than \u003cstrong>50% of criminal activity or territory\u003c/strong> will be reviewed and may be broken up by the Illegal Team to preserve server balance.\u003c/p>"
+      },
+      {
+       "id": "ALL-04",
+       "t": "Gang Rivalries",
+       "b": "\u003cp>Rivalries should produce engaging RP storylines, not constant zerging or griefing loops. The goal is compelling conflict, not one side being unable to play.\u003c/p>"
+      },
+      {
+       "id": "ALC-05",
+       "t": "Combined & Active Scenes",
+       "b": "\u003cul>\u003cli>Allied gangs may participate in combined scenes when appropriate.\u003c/li>\u003cli>Numbers must remain fair and balanced.\u003c/li>\u003cli>Allies may intervene if their alliance is actively under attack.\u003c/li>\u003cli>All normal interaction and server rules still apply.\u003c/li>\u003cli>Once a scene is over, it is over — allies cannot arrive afterward to restart or continue the conflict.\u003c/li>\u003c/ul>"
+      },
+      {
+       "id": "ALC-07",
+       "t": "Alliances During an Active KOS",
+       "b": "\u003cul>\u003cli>A KOS applies \u003cstrong>ONLY\u003c/strong> to the two gangs officially listed.\u003c/li>\u003cli>Your ally does \u003cstrong>NOT\u003c/strong> inherit your KOS.\u003c/li>\u003cli>Allies must follow normal interaction requirements.\u003c/li>\u003cli>Allies may assist during an active KOS scene involving their alliance.\u003c/li>\u003cli>Allies cannot independently hunt, target, or attack the opposing KOS gang without proper interaction.\u003c/li>\u003c/ul>",
+       "f": "warn"
+      },
+      {
+       "id": "ALC-09",
+       "t": "Alliances During an Active NCO",
+       "b": "\u003cul>\u003cli>Alliances cannot be used to bypass an NCO.\u003c/li>\u003cli>Allies cannot bait, antagonize, threaten, follow, or target the opposing gang on your behalf.\u003c/li>\u003cli>Allies cannot intentionally create scenes to work around an NCO.\u003c/li>\u003c/ul>",
+       "f": "no"
+      }
+     ]
+    },
+    {
+     "id": "orders",
+     "name": "KOS & NCO Orders",
+     "emoji": "💀",
+     "prefix": "KOS",
+     "rules": [
+      {
+       "id": "KOS-01",
+       "t": "What a KOS Is",
+       "b": "\u003cp>A KOS removes the normal \u003cstrong>30-second interaction\u003c/strong> requirement between two approved gangs.\u003c/p>"
+      },
+      {
+       "id": "KOS-02",
+       "t": "Approval",
+       "b": "\u003cul>\u003cli>Both gang bosses must agree.\u003c/li>\u003cli>Illegal Management must approve it.\u003c/li>\u003c/ul>"
+      },
+      {
+       "id": "KOS-04",
+       "t": "KOS Duration",
+       "b": "\u003cp>\u003cstrong>24–48 hours.\u003c/strong>\u003c/p>"
+      },
+      {
+       "id": "KOS-06",
+       "t": "Everything Else Still Applies",
+       "b": "\u003cp>All other MSRP rules still apply during an active KOS.\u003c/p>",
+       "f": "warn"
+      },
+      {
+       "id": "NCO-01",
+       "t": "What an NCO Is",
+       "b": "\u003cp>An NCO means \u003cstrong>no in-city interaction\u003c/strong> between the listed gangs.\u003c/p>"
+      },
+      {
+       "id": "NCO-07",
+       "t": "What No Contact Means",
+       "b": "\u003cp>Do not approach, antagonize, follow, target, or use others to bypass it.\u003c/p>",
+       "f": "warn"
+      },
+      {
+       "id": "NCO-08",
+       "t": "NCO Duration",
+       "b": "\u003cp>\u003cstrong>48 hours – 1 week.\u003c/strong>\u003c/p>"
+      },
+      {
+       "id": "NCO-03",
+       "t": "One-Sided Requests",
+       "b": "\u003cp>One-sided NCO requests require valid evidence and management approval.\u003c/p>"
+      },
+      {
+       "id": "NCO-10",
+       "t": "Violations",
+       "b": "\u003cp>Violations may result in gang strikes or further action.\u003c/p>",
+       "f": "no"
+      }
+     ]
+    },
+    {
+     "id": "operations",
+     "name": "Crime & Operations",
+     "emoji": "💰",
+     "prefix": "ROB",
+     "rules": [
+      {
+       "id": "ROB-01",
+       "t": "Interactions",
+       "b": "\u003cp>All robberies require a valid roleplay reason. You cannot rob someone simply because they exist near you. There must be prior interaction, narrative context, or IC justification.\u003c/p>"
+      },
+      {
+       "id": "ROB-02",
+       "t": "Kidnapping",
+       "b": "\u003cp>Kidnapping another player requires a strong IC reason, consent from an admin if the scene will last more than \u003cstrong>10 minutes\u003c/strong>, and there must be at least 2 more people than the other party. For example, to kidnap 3 people you must have at least 5 allies.\u003c/p>"
+      },
+      {
+       "id": "ROB-03",
+       "t": "Random Deathmatch (RDM)",
+       "f": "warn",
+       "b": "\u003cp>Players must give a clear verbal demand before initiating a robbery. Shooting without demands is considered RDM (random deathmatch).\u003c/p>"
+      },
+      {
+       "id": "ROB-04",
+       "t": "Repeated Targeting",
+       "f": "no",
+       "b": "\u003cp>You may not rob the same player more than once every \u003cstrong>2 hours\u003c/strong>. Repeated targeting of the same individual is considered harassment.\u003c/p>"
+      },
+      {
+       "id": "FRE-01",
+       "t": "Freelancer Rules",
+       "b": "\u003cp>Players who engage in criminal activity without a registered gang are considered freelance criminals and are still bound by all criminal RP rules in this document.\u003c/p>"
+      },
+      {
+       "id": "FRE-02",
+       "t": "Freelancer Restrictions",
+       "b": "\u003cp>Freelancers may not claim territory, operate drug networks above a small personal scale, or commit organized heists of 3+ people without aligning with a registered gang.\u003c/p>"
+      },
+      {
+       "id": "FRE-03",
+       "t": "Operating in Gang Territory",
+       "b": "\u003cp>Freelancers operating in a gang’s claimed territory must either pay tribute (IC), seek permission, or be prepared for IC consequences from that gang.\u003c/p>"
+      },
+      {
+       "id": "DRG-01",
+       "t": "Drug Locations Are NOT Safe Zones",
+       "b": "\u003cp>Drug locations (weed, lean, etc.) are not safe zones and should not be AFK’d at. Robbing, taxing, and interactions are allowed inside and around drug locations, following the \u003cstrong>30-second interaction\u003c/strong> rule.\u003c/p>"
+      },
+      {
+       "id": "DRG-02",
+       "t": "Interactions at the Drug Location",
+       "b": "\u003cp>Interactions at drug locations should follow the same rules as any interaction. Interactions should last at least \u003cstrong>30 seconds\u003c/strong> to be valid RP.\u003c/p>"
+      },
+      {
+       "id": "CLE-01",
+       "t": "Corrupt Law RP",
+       "b": "\u003cp>Corrupt law enforcement roleplay is permitted but must be approved and monitored by both the Illegal Team and the LEO division. A player cannot roleplay as corrupt without applying through the correct channels.\u003c/p>"
+      },
+      {
+       "id": "CLE-02",
+       "t": "Police Informant RP",
+       "b": "\u003cp>Informant RP (a gang member feeding intel to law enforcement) must be approved IC via a storyline thread. Random informant claims as a justification for OOC actions are not valid.\u003c/p>"
+      },
+      {
+       "id": "CLE-03",
+       "t": "Unauthorized Corruption",
+       "f": "no",
+       "b": "\u003cp>Any LEO found accepting bribes or leaking IC police information outside of approved corrupt RP will face division-level punishment, not just server punishment.\u003c/p>"
+      }
+     ]
+    },
+    {
+     "id": "compounds",
+     "name": "Compounds & Territory",
+     "emoji": "🏚️",
+     "prefix": "CMP",
+     "rules": [
+      {
+       "id": "CMP-01",
+       "t": "Three Warnings Before Shooting",
+       "b": "\u003cp>There must be \u003cstrong>3 warnings to leave\u003c/strong> before shooting on a compound. Keep in mind the reverse.\u003c/p>\u003cp>If someone is actively trying to leave a compound after being warned, this rule is void.\u003c/p>",
+       "f": "warn"
+      },
+      {
+       "id": "CMP-05",
+       "t": "No Shooting on Compound",
+       "b": "\u003cp>No shooting on active gang compounds.\u003c/p>",
+       "f": "warn"
+      },
+      {
+       "id": "CMP-03",
+       "t": "No Running Into Compounds",
+       "b": "\u003cp>No running into compounds during an active scene.\u003c/p>",
+       "f": "warn"
+      },
+      {
+       "id": "CMP-02",
+       "t": "Selling Drugs Within a Compound",
+       "f": "warn",
+       "b": "\u003cp>Selling within a compound is not permitted. This allows RP with other gangs and law enforcement.\u003c/p>"
+      },
+      {
+       "id": "CMP-04",
+       "t": "Compound Interactions",
+       "f": "warn",
+       "b": "\u003cp>Compounds are reverse-RDM. Interactions leading to shooting should not be done within compounds.\u003c/p>"
+      }
+     ]
+    },
+    {
+     "id": "strikes",
+     "name": "Gang Strikes",
+     "emoji": "⚠️",
+     "prefix": "STR",
+     "rules": [
+      {
+       "id": "STR-01",
+       "t": "What a Gang Strike Is",
+       "b": "\u003cp>Gang strikes are formal disciplinary actions issued by the MSRP Illegal Team with \u003cstrong>Illegal Management approval\u003c/strong>.\u003c/p>\u003cp>Strikes are meant to correct ongoing issues while holding gang leadership accountable.\u003c/p>"
+      },
+      {
+       "id": "STR-02",
+       "t": "Grounds for a Strike",
+       "b": "\u003cul>\u003cli>Repeated compound rule violations.\u003c/li>\u003cli>Gang baiting or PD baiting.\u003c/li>\u003cli>Leadership failing to correct repeated member behavior.\u003c/li>\u003cli>Poor gang health, activity, recruitment, or economy after multiple warnings.\u003c/li>\u003cli>Repeated NCOs involving harassment, forced scenes, toxicity, or similar concerns.\u003c/li>\u003cli>Severe behavior may result in a strike without prior warnings.\u003c/li>\u003c/ul>",
+       "f": "warn"
+      },
+      {
+       "id": "STR-08",
+       "t": "Strike Progression",
+       "b": "\u003cul>\u003cli>\u003cstrong>Warning #1\u003c/strong> — leadership is notified and expected to correct the issue.\u003c/li>\u003cli>\u003cstrong>Warning #2\u003c/strong> — continued issues may result in formal strike progression.\u003c/li>\u003cli>\u003cstrong>Strike #1 · Probation\u003c/strong> — the gang is placed under increased Illegal Team supervision.\u003c/li>\u003cli>\u003cstrong>Strike #2 · Second Penalty\u003c/strong> — continued violations place the panel at serious risk of disbandment.\u003c/li>\u003cli>\u003cstrong>Strike #3 · Disbandment\u003c/strong> — the gang panel may be removed and the compound released.\u003c/li>\u003c/ul>"
+      },
+      {
+       "id": "STR-09",
+       "t": "Important Clarifications",
+       "b": "\u003cul>\u003cli>Strikes do not have to be for the same violation.\u003c/li>\u003cli>Strikes apply to the overall gang panel, not one specific offense.\u003c/li>\u003cli>Severity, evidence, previous warnings, and panel history may be considered.\u003c/li>\u003cli>All official strikes require Illegal Management approval.\u003c/li>\u003c/ul>"
+      }
+     ]
+    }
+   ],
+   "emoji": "😈"
+  },
+  {
+   "id": "updates",
+   "name": "Rulebook Updates",
+   "icon": "updates",
+   "blurb": "Below is a log of updates made to the rulebook.",
+   "changelog": [
+    {
+     "date": "08/31/2026",
+     "title": "Staying in character is now its own rule",
+     "adds": [
+      "\u003cstrong>GEN-16 · No Going OOC — Stay in Character\u003c/strong> added to General Rules. Breaking character mid-scene, or using OOC chat to get out of what is happening to your character, is FailRP."
+     ]
+    },
+    {
+     "date": "08/31/2026",
+     "title": "Illegal rules replaced with the condensed Illegal Team documents",
+     "adds": [
+      "Alliances, KOS, NCO, baiting, compound rules and the gang strike system now follow the current Illegal Team documents, in their shortened form.",
+      "Duplicates removed across the Illegal section — where the same rule was written twice, the newer wording stands and keeps the original rule ID.",
+      "Rules withdrawn: BAI-02, ALL-02, ALL-03, ALC-02, ALC-04, ALC-06, ALC-08, ALC-10, KOS-03, KOS-05, NCO-02, NCO-04, NCO-05, NCO-06, NCO-09, STR-03, STR-04, STR-05, STR-06, STR-07, STR-10. Each is either covered by a rule above or has moved out of the public rulebook.",
+      "Every rule that survived kept its ID, so existing reports and links still resolve."
+     ]
+    },
+    {
+     "date": "08/31/2026",
+     "title": "Rulebook restructured",
+     "adds": [
+      "The \u003cstrong>Staff\u003c/strong> section has been removed from the public rulebook.",
+      "\u003cstrong>Illegal\u003c/strong> reorganised from 13 pages down to 7: Conduct &amp; Standards, Combat &amp; Engagement, Alliances, KOS &amp; NCO Orders, Crime &amp; Operations, Compounds &amp; Territory, and Gang Strikes.",
+      "Baiting now sits with Combat &amp; Engagement; the two alliance pages are merged; KOS and NCO share one page; robbery, freelance, drugs and corrupt LEO rules are together under Crime &amp; Operations.",
+      "\u003cstrong>No rule text changed and no rule ID changed\u003c/strong> — anything already cited still resolves."
+     ]
+    },
+    {
+     "date": "08/31/2026",
+     "title": "Illegal Team: alliances, KOS/NCO, baiting, and the gang strike system",
+     "adds": [
+      "\u003cstrong>Alliance Rules & Clarification\u003c/strong> — new page covering the One Ally Rule, factions/sectors, the purpose of an alliance, combined scenes, intervening in active vs. concluded scenes, and how alliances work during an active KOS or NCO.",
+      "\u003cstrong>Gang & PD Baiting\u003c/strong> — new page. Both are grounds for a gang strike, and PD/Sheriff stations are treated as a compound for gang rules.",
+      "\u003cstrong>KOS — Kill on Sight\u003c/strong> — new page. Requirements, how to request one, 24–48 hour duration, leadership responsibility, and how reports are handled during an active KOS.",
+      "\u003cstrong>NCO — No Contact Order\u003c/strong> — new page. Grounds, one-sided and mutual requests, mediation, what “no contact” means, 48 hour–1 week duration, and OOC harassment going to Culture Team instead.",
+      "\u003cstrong>Gang Strike System\u003c/strong> — new page. Every ground for a strike, management discretion on warnings, and the full progression from Warning #1 through Strike #3 panel disbandment.",
+      "\u003cstrong>No Shooting on Compound\u003c/strong> — added to the Compounds page."
+     ]
+    },
+    {
+     "date": "07/24/2026",
+     "title": "Combat, interactions, and exploiting clarified",
+     "changes": [
+      {
+       "was": "No shooting from inside a vehicle without prior RP justification or during an active, declared pursuit/conflict. Drive-bys must be part of an ongoing conflict, not a surprise initiation. A drive-by you cannot return to a scene; it must be a genuine drive-by.",
+       "now": "No shooting from inside a vehicle without prior RP justification or during an active, declared pursuit/conflict. Drive-bys must be part of an ongoing conflict, not a surprise initiation. A drive-by you cannot return to a scene; it must be a genuine drive-by. \u003cstrong>Shooting from BPs is prohibited.\u003c/strong>"
+      },
+      {
+       "was": "Interactions must consist of: outside of a car to start; a 30-second interaction; a valid RP reason; at least 15 minutes between interactions with the same people.",
+       "now": "Interactions must consist of: outside of a car to start; a 30-second interaction; \u003cstrong>guns can be out during the 30-second interaction, however guns cannot be pointed at someone\u003c/strong>; a valid RP reason; at least 15 minutes between interactions with the same people."
+      },
+      {
+       "was": "Using any modifications, trainers, exploits, or third-party tools that provide an unfair advantage results in a permanent ban. Report any exploits found to staff immediately. Assisting, covering for, or defending a player who is using cheats will result in punishment.",
+       "now": "…as before, plus: \u003cstrong>This includes using no props, no bushes, or any similar modifications that alter in-game objects to gain an unfair advantage.\u003c/strong>"
+      }
+     ]
+    },
+    {
+     "date": "07/12/2026",
+     "title": "Staff rules added",
+     "adds": [
+      "\u003cstrong>Voice Chat\u003c/strong> — Be inside a staff VC while within city. However, do not use this as a form of metagaming while participating in RP. Mute and deafen yourself.",
+      "\u003cstrong>Switching Panels\u003c/strong> — Whenever switching between panels keep NLR in mind; these lives are kept separate and you will not have the same knowledge between the two characters. Your gang character should NOT benefit your PD character and vice versa.",
+      "\u003cstrong>Exploiting\u003c/strong> — Using anything that exploits bugs, \u003ccode>/reset\u003c/code>, etc. is strictly prohibited.",
+      "\u003cstrong>Content with perms/staff menu\u003c/strong> — Using in-city staff permissions or menus while streaming or posting content is prohibited."
+     ]
+    },
+    {
+     "date": "07/10/2026",
+     "title": "Kidnapping requirements changed",
+     "changes": [
+      {
+       "was": "Kidnapping another player requires a strong IC reason, consent from an admin if the scene will last more than \u003cstrong>15 minutes\u003c/strong>, and must not be used as a vehicle for OOC harassment. There must be at least 3 allies or gang members to kidnap an individual.",
+       "now": "Kidnapping another player requires a strong IC reason, consent from an admin if the scene will last more than \u003cstrong>10 minutes\u003c/strong>, and there must be at least 2 more people than the other party. For example, to kidnap 3 people you must have at least 5 allies."
+      }
+     ]
+    },
+    {
+     "date": "07/09/2026",
+     "title": "Creation of a new rulebook",
+     "adds": [
+      "Creation of a new rulebook. The original rulebook was used as an outline."
+     ]
+    }
+   ],
+   "emoji": "⬆️"
+  }
+ ],
+ "markers": [
+  {
+   "id": "ok",
+   "label": "Expected",
+   "emoji": "✅",
+   "tone": "green"
+  },
+  {
+   "id": "warn",
+   "label": "Warning",
+   "emoji": "🟡",
+   "tone": "amber"
+  },
+  {
+   "id": "no",
+   "label": "Prohibited",
+   "emoji": "❌",
+   "tone": "red"
+  }
+ ],
+ "editors": [
+  {
+   "name": "Morgan",
+   "role": "Server Owner",
+   "level": "owner",
+   "sections": [
+    "*"
+   ],
+   "granted": true,
+   "locked": true,
+   "addedAt": "2026-08-31T23:38:08.616Z"
+  }
+ ],
+ "audit": [],
+ "backups": []
+}</script>
+
+<script>
+/* ===========================================================================
+   MAINSTREET RP — RULEBOOK
+
+   Content lives in the #book-data JSON block above, and is edited in the page
+   itself: anyone with edit access to this artifact sees an "Edit rulebook"
+   button, and publishing writes a new version of this page that every open
+   view reloads to.
+
+   Severity (`f`) matches the GitBook markers:  ok = ✅  warn = 🟡  no = ❌
+=========================================================================== */
+
+const SELF_SCRIPT = document.currentScript;
+const ENGINE_SRC  = SELF_SCRIPT.textContent;
+const STYLE_SRC   = document.getElementById('rb-style').textContent;
+const SHELL_SRC   = document.querySelector('.shell').outerHTML
+                  + '\n' + document.getElementById('scrim').outerHTML
+                  + '\n' + document.getElementById('toast').outerHTML
+                  + '\n' + document.getElementById('sheet').outerHTML;
+/* Kept in step with the <head> above, so a republish from inside the page
+   does not lose the favicon or the fonts. */
+const FONT_SRC =
+  '<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#128658;</text></svg>">\n' +
+  '<link rel="preconnect" href="https://fonts.googleapis.com">\n' +
+  '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
+  '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">';
+
+/* The data block holds {book, backups}. Older versions held the book array on
+   its own, so both shapes are accepted. Backups are snapshots of the book as
+   it was BEFORE each publish — they never contain backups of their own. */
+const MAX_BACKUPS = 5;
+const DATA    = JSON.parse(document.getElementById('book-data').textContent);
+const BOOK    = Array.isArray(DATA) ? DATA : (DATA.book || []);
+let   BACKUPS = (Array.isArray(DATA) ? [] : (DATA.backups || [])).slice(0, MAX_BACKUPS);
+const clone   = x => JSON.parse(JSON.stringify(x));
+let   ORIGINAL = clone(BOOK);   /* the published state this view loaded */
+
+/* Admin records. EDITORS is a roster Morgan keeps — it does NOT grant
+   anything; artifact sharing does. AUDIT is the change history, written on
+   every successful publish. */
+const MAX_AUDIT = 200;
+let EDITORS = (!Array.isArray(DATA) && Array.isArray(DATA.editors)) ? DATA.editors : [];
+let AUDIT   = (!Array.isArray(DATA) && Array.isArray(DATA.audit))   ? DATA.audit   : [];
+
+/* Markers are data: rename them, recolour them, add your own. A rule's `f`
+   holds a marker id. Older data has no markers list, so seed the three the
+   book started with. */
+const DEFAULT_MARKERS = [
+  {id:'ok',   label:'Expected',   emoji:'✅', tone:'green'},
+  {id:'warn', label:'Warning',    emoji:'🟡', tone:'amber'},
+  {id:'no',   label:'Prohibited', emoji:'❌', tone:'red'}
+];
+const TONES = ['green','amber','red','grey'];
+
+let MARKERS = (!Array.isArray(DATA) && Array.isArray(DATA.markers) && DATA.markers.length)
+  ? DATA.markers : clone(DEFAULT_MARKERS);
+
+let ORIGINAL_MARKERS = clone(MARKERS);
+let ORIGINAL_EDITORS = clone(EDITORS);
+const markerById = id => MARKERS.find(m => m.id === id);
+
+/* a marker as it appears beside a rule, or in the legend */
+function markerChip(m){
+  if(!m) return '';
+  return '<span class="flag tone-'+esc(m.tone||'grey')+'">'
+       + (m.emoji ? '<span class="ico sm">'+esc(m.emoji)+'</span> ' : '')
+       + esc(m.label) + '</span>';
+}
+
+const $  = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const page = $('#page'), navScroll = $('#navScroll'), qInput = $('#q');
+
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const glyph = (e,cls) => '<span class="ico '+(cls||'')+'" aria-hidden="true">'+esc(e||'📘')+'</span>';
+
+/* a page can hold rules from more than one ID series after a reshuffle */
+const prefixesOf = g =>
+  [...new Set(g.rules.map(r=>String(r.id).split('-')[0]))].join(', ') || g.prefix;
+
+const sections   = () => BOOK.filter(s=>s.groups);
+const ruleCount  = s => (s.groups||[]).reduce((n,g)=>n+g.rules.length,0);
+const totalRules = () => BOOK.reduce((n,s)=>n+ruleCount(s),0);
+const logSection = () => BOOK.find(s=>s.changelog);
+const lastUpdated = () => { const l = logSection(); return l && l.changelog[0] ? l.changelog[0].date : ''; };
+
+function refreshStats(){
+  $('#ruleCount').textContent = totalRules();
+  $('#barDate').textContent = 'upd. ' + lastUpdated();
+}
+
+function buildIndex(){
+  const idx = [];
+  BOOK.forEach(sec=>(sec.groups||[]).forEach(gr=>gr.rules.forEach(r=>{
+    idx.push({sec,gr,r,text:(r.id+' '+r.t+' '+String(r.b).replace(/<[^>]+>/g,' ')).replace(/\s+/g,' ')});
+  })));
+  return idx;
+}
+let INDEX = buildIndex();
+
+/* ---------------- per-viewer reading progress ---------------- */
+
+const KEY = 'msrp-rulebook-read-v1';
+let readSet = new Set();
+try{ readSet = new Set(JSON.parse(localStorage.getItem(KEY)||'[]')); }catch(e){}
+const saveRead = ()=>{ try{ localStorage.setItem(KEY, JSON.stringify([...readSet])); }catch(e){} };
+
+/* ---------------- text size ---------------- */
+
+const SIZE_KEY = 'msrp-rulebook-textsize-v1';
+let textSize = 1;
+const SIZE_NAME = {1:'Normal', 2:'Large', 3:'Largest'};
+
+function setTextSize(n, quiet){
+  textSize = (n===2 || n===3) ? n : 1;
+  document.body.classList.remove('rs-2','rs-3');
+  if(textSize > 1) document.body.classList.add('rs-'+textSize);
+  try{ localStorage.setItem(SIZE_KEY, String(textSize)); }catch(e){}
+  if(!quiet) toast('Text size: ' + SIZE_NAME[textSize]);
+}
+
+function renderMeter(){
+  const list = BOOK, done = list.filter(s=>readSet.has(s.id)).length;
+  $('#meterFill').style.width = (done/list.length*100)+'%';
+  $('#meterText').textContent = done + ' of ' + list.length + ' sections read';
+}
+
+/* ---------------- sidebar ---------------- */
+
+function renderNav(activeId){
+  navScroll.innerHTML = '<div class="nav-label">Sections</div>' + BOOK.map(sec=>{
+    const cur = sec.id===activeId ? ' aria-current="page"' : '';
+    const subs = (sec.id===activeId && sec.groups)
+      ? sec.groups.map(g=>'<button class="nav-sub" data-goto="'+sec.id+'" data-group="'+g.id+'">'
+          + glyph(g.emoji,'sm') + '<span>'+esc(g.name)+'</span></button>').join('')
+      : '';
+    return '<button class="nav-item" data-goto="'+sec.id+'"'+cur+'>'
+      + glyph(sec.emoji)
+      + '<span class="n">'+esc(sec.name)+'</span>'
+      + '<span class="tick '+(readSet.has(sec.id)?'on':'')+'" aria-hidden="true">✓</span>'
+      + '</button>' + subs;
+  }).join('');
+  renderMeter();
+}
+
+/* ---------------- views ---------------- */
+
+function viewHome(){
+  return '<div class="wrap wide"><header class="hero">'
+    + '<div class="stamp"><span class="dot"></span> Last updated '+esc(lastUpdated())+' · '+totalRules()+' rules</div>'
+    + '<div class="eyebrow">Mainstreet RP</div>'
+    + '<h1>The Rulebook</h1>'
+    + '<p class="lede">Everything you agree to by spawning into the city. Read it through once, then search it whenever a scene goes sideways. Every rule has an ID — if staff tell you that you broke <strong>CMB-02</strong>, this is where you find out what that means.</p>'
+    + '<div class="cards">' + BOOK.map(sec=>
+        '<button class="card" data-goto="'+sec.id+'">' + glyph(sec.emoji,'big')
+        + '<span style="flex:1"><h3>'+esc(sec.name)+'</h3><p>'+esc(sec.blurb)+'</p>'
+        + '<span class="count">'+(sec.groups ? ruleCount(sec)+' RULES · '+sec.groups.length+' PAGES' : 'CHANGELOG')+'</span></span></button>'
+      ).join('') + '</div>'
+    + '<section class="quick"><h2>If you read nothing else</h2>'
+    + '<p class="sub">The rules that come up in almost every report.</p><ol>'
+    + '<li><b>Stay in character.</b> From spawn to logout. Never go OOC to argue, explain yourself, or get out of what is happening to your character.</li>'
+    + '<li><b>30-second interaction.</b> Out of the car, a real conversation, a valid RP reason — before anyone shoots.</li>'
+    + '<li><b>Value your life.</b> Outnumbered and outgunned means your character acts like it.</li>'
+    + '<li><b>New Life Rule.</b> You forget how you died and stay away from the scene for 15 minutes.</li>'
+    + '<li><b>No metagaming.</b> Discord, streams and out-of-city calls don\'t exist to your character.</li>'
+    + '<li><b>Never log out mid-scene.</b> Wait until the situation has fully concluded.</li>'
+    + '<li><b>Three warnings on a compound.</b> Someone must be warned to leave three times before they can be shot — and that is void the moment they are actually leaving. It works both ways.</li>'
+    + '<li><b>KOS and NCO are never self-issued.</b> Both need Illegal Team documentation and management approval.</li>'
+    + '</ol><div class="legend"><span class="txt">Markers used through the book:</span>'
+    + MARKERS.map(markerChip).join('')
+    + '</div></section></header></div>';
+}
+
+function ruleHTML(sec,gr,r,i,n){
+  const flag = r.f ? markerChip(markerById(r.f)) : '';
+  const tools = !mayEdit(sec.id) ? '' : '<span class="rule-tools">'
+    + '<button class="icon-btn" data-redit="'+r.id+'" title="Edit this rule" aria-label="Edit rule '+esc(r.id)+'">✎</button>'
+    + '<button class="icon-btn" data-rmove="'+r.id+'" data-dir="-1" title="Move up" aria-label="Move rule up"'+(i===0?' disabled':'')+'>↑</button>'
+    + '<button class="icon-btn" data-rmove="'+r.id+'" data-dir="1" title="Move down" aria-label="Move rule down"'+(i===n-1?' disabled':'')+'>↓</button>'
+    + (isOwner()
+        ? '<button class="icon-btn del" data-rdel="'+r.id+'" title="Delete this rule" aria-label="Delete rule">✕</button>'
+        : '<button class="icon-btn" disabled title="Only the owner can remove rules">✕</button>')
+    + '</span>';
+
+  const form = (openRule===r.id) ? ruleFormHTML(r) : '<div class="body">'+r.b+'</div>';
+
+  return '<article class="rule" id="'+sec.id+'/'+r.id+'" data-rule="'+r.id+'" data-group="'+gr.id+'">'
+    + '<div class="rule-head"><span class="rid">'+esc(r.id)+'</span><h4>'+esc(r.t)+'</h4>'+flag
+    + '<button class="link-btn" data-copy="'+sec.id+'/'+r.id+'" title="Copy link to this rule" aria-label="Copy link to rule '+esc(r.id)+'">'
+    + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">'
+    + '<path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></button>'
+    + tools + '</div>' + form + '</article>';
+}
+
+function ruleFormHTML(r){
+  const pick = (id,label,tone) =>
+    '<button class="pick tone-'+tone+((r.f||'')===id?' on':'')+'" data-setflag="'+esc(id)+'">'+label+'</button>';
+  return '<div class="form">'
+    + '<div><label for="f-t">Rule title</label><input id="f-t" type="text" data-bind="t" value="'+esc(r.t)+'"></div>'
+    + '<div><label>Marker</label><div class="picks">'
+    +   MARKERS.map(m=>pick(m.id, (m.emoji?esc(m.emoji)+' ':'')+esc(m.label), esc(m.tone||'grey'))).join('')
+    +   pick('','No marker','none')
+    +   '<button class="btn ghost" id="markersBtn" style="margin-left:auto">Edit markers…</button>'
+    + '</div></div>'
+    + '<div><label for="f-b">Rule text</label><textarea id="f-b" data-bind="b">'+esc(htmlToText(r.b))+'</textarea>'
+    + '<p class="hint">Blank line starts a new paragraph · a line starting with “- ” becomes a bullet · &lt;strong&gt;bold&lt;/strong&gt;, &lt;em&gt;italic&lt;/em&gt; and &lt;code&gt;/commands&lt;/code&gt; work inline.</p></div>'
+    + '<div class="actions"><button class="btn" data-rclose="1">Done</button></div>'
+    + '</div>';
+}
+
+function groupHTML(sec,g,gi){
+  const head = editing
+    ? '<div class="group-head">'
+      + '<input class="ed-input ed-emoji" data-gemoji="'+g.id+'" value="'+esc(g.emoji||'')+'" aria-label="Page emoji" maxlength="4">'
+      + '<input class="ed-input ed-name" data-gname="'+g.id+'" value="'+esc(g.name)+'" aria-label="Page name">'
+      + '<span class="gid">'+g.rules.length+' · new IDs: '+esc(g.prefix)+'</span>'
+      + '<span class="rule-tools" style="display:flex">'
+      + '<button class="icon-btn" data-gmove="'+g.id+'" data-dir="-1" title="Move page up"'+(gi===0?' disabled':'')+'>↑</button>'
+      + '<button class="icon-btn" data-gmove="'+g.id+'" data-dir="1" title="Move page down"'+(gi===sec.groups.length-1?' disabled':'')+'>↓</button>'
+      + (isOwner() ? '<button class="icon-btn del" data-gdel="'+g.id+'" title="Delete this page">✕</button>'
+                   : '<button class="icon-btn" disabled title="Only the owner can remove pages">✕</button>')
+      + '</span></div>'
+    : '<div class="group-head"><h2>'+glyph(g.emoji,'h2')+esc(g.name)+'</h2>'
+      + '<span class="gid">'+g.rules.length+' rule'+(g.rules.length===1?'':'s')+' · '+esc(prefixesOf(g))+'</span></div>';
+
+  const add = (editing && mayEdit(sec.id)) ? '<div class="add-row"><button class="btn" data-gadd="'+g.id+'">+ Add rule to this page</button></div>' : '';
+
+  return '<section class="group" id="g-'+sec.id+'-'+g.id+'">' + head
+    + g.rules.map((r,i)=>ruleHTML(sec,g,r,i,g.rules.length)).join('') + add + '</section>';
+}
+
+function changelogHTML(sec){
+  const rows = sec.changelog.map((e,i)=>{
+    const kind = e.adds && !e.changes ? 'Added' : (e.changes && !e.adds ? 'Changed' : 'Update');
+    if(editing){
+      return '<div class="log-entry" data-entry="'+i+'">'
+        + '<div class="log-date"><input class="ed-input" data-ldate="'+i+'" value="'+esc(e.date)+'" aria-label="Date"></div>'
+        + '<div><input class="ed-input" data-ltitle="'+i+'" value="'+esc(e.title||'')+'" aria-label="Entry title" style="margin-bottom:10px">'
+        + '<label style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)">One bullet per line</label>'
+        + '<textarea class="ed-input" data-litems="'+i+'" style="min-height:110px;font-family:var(--mono);font-size:13px">'+esc((e.adds||[]).join('\n'))+'</textarea>'
+        + (e.changes||[]).map((c,ci)=>'<div class="diff" style="margin-top:12px">'
+            + '<div class="was"><span class="lbl">Was</span><textarea class="ed-input" data-lwas="'+i+'" data-ci="'+ci+'" style="min-height:70px">'+esc(c.was)+'</textarea></div>'
+            + '<div class="now"><span class="lbl">Now</span><textarea class="ed-input" data-lnow="'+i+'" data-ci="'+ci+'" style="min-height:70px">'+esc(c.now)+'</textarea></div>'
+          + '</div>').join('')
+        + '<div class="add-row"><button class="btn danger" data-ldel="'+i+'">Delete this entry</button></div>'
+        + '</div></div>';
+    }
+    return '<div class="log-entry">'
+      + '<div class="log-date">'+esc(e.date)+'<small>'+kind+'</small></div>'
+      + '<div><h4>'+esc(e.title||'Update')+'</h4>'
+      + (e.adds ? '<ul>'+e.adds.map(x=>'<li>'+x+'</li>').join('')+'</ul>' : '')
+      + (e.changes||[]).map(c=>'<div class="diff"><div class="was"><span class="lbl">Was</span>'+c.was+'</div>'
+          + '<div class="now"><span class="lbl">Now</span>'+c.now+'</div></div>').join('')
+      + '</div></div>';
+  }).join('');
+
+  const add = editing ? '<div class="add-row"><button class="btn" id="logAdd">+ Add changelog entry</button></div>' : '';
+  return '<div class="log">'+rows+'</div>'+add;
+}
+
+function viewSection(sec){
+  const i = BOOK.indexOf(sec), prev = BOOK[i-1], next = BOOK[i+1], isRead = readSet.has(sec.id);
+
+  const head = editing
+    ? '<header class="sec-head"><div class="eyebrow">Section '+(i+1)+' of '+BOOK.length+'</div>'
+      + '<div class="ed-titlerow" style="margin:16px 0 12px">'
+      + '<input class="ed-input ed-emoji" data-semoji value="'+esc(sec.emoji||'')+'" aria-label="Section emoji" maxlength="4">'
+      + '<input class="ed-input ed-h1" data-sname value="'+esc(sec.name)+'" aria-label="Section name"></div>'
+      + '<textarea class="ed-input" data-sblurb aria-label="Section description" style="min-height:70px">'+esc(sec.blurb)+'</textarea></header>'
+    : '<header class="sec-head"><div class="eyebrow">Section '+(i+1)+' of '+BOOK.length+'</div>'
+      + '<h1>'+glyph(sec.emoji,'h1')+esc(sec.name)+'</h1><p class="lede">'+esc(sec.blurb)+'</p></header>';
+
+  const locked = (editing && !mayEdit(sec.id))
+    ? '<div class="no-rights">You are set up to edit other sections, so ' + esc(sec.name)
+      + ' is read-only for you. Ask the owner if you need it.</div>'
+    : '';
+
+  const main = locked + (sec.changelog
+    ? changelogHTML(sec)
+    : sec.groups.map((g,gi)=>groupHTML(sec,g,gi)).join('')
+      + ((editing && mayEdit(sec.id)) ? '<div class="add-row"><button class="btn" id="pageAdd">+ Add a page to '+esc(sec.name)+'</button></div>' : ''));
+
+  const foot = editing ? '' :
+      '<footer class="sec-foot">'
+    + '<button class="ack '+(isRead?'on':'')+'" data-ack="'+sec.id+'"><span class="box">✓</span>'
+    + '<span>'+(isRead?'You have read this section':'Mark this section as read')+'</span></button>'
+    + '<div class="pager">'
+    + (prev?'<button data-goto="'+prev.id+'"><span class="dir">← Previous</span><span class="ttl">'+esc(prev.name)+'</span></button>':'<span></span>')
+    + (next?'<button class="next" data-goto="'+next.id+'"><span class="dir">Next →</span><span class="ttl">'+esc(next.name)+'</span></button>':'<span></span>')
+    + '</div></footer>';
+
+  return '<div class="wrap">'+head+main+foot+'</div>';
+}
+
+/* ---------------- admin ---------------- */
+
+let auditFilter = '';
+
+/* The archive file is the copy nobody else can touch, so say plainly whether
+   this machine actually holds a current one. */
+function archiveStatus(){
+  if(!dl) return '';
+  const a = lastArchive();
+  if(!a) return '<div class="arch warn-arch"><strong>No archive downloaded on this device.</strong>'
+    + ' The file is the one backup no editor can reach — take one now.</div>';
+  const behind = Math.max(0, AUDIT.length - (a.audit || 0));
+  return behind
+    ? '<div class="arch warn-arch"><strong>Your archive is ' + behind + ' publish' + (behind===1?'':'es') + ' out of date.</strong>'
+      + ' Last downloaded ' + esc(fmtWhen(a.at)) + '.</div>'
+    : '<div class="arch ok-arch">Archive up to date — downloaded ' + esc(fmtWhen(a.at)) + '.</div>';
+}
+
+function viewAdmin(){
+  const pages = BOOK.reduce((n,s)=>n+(s.groups||[]).length,0);
+
+  const owner = isOwner();
+  const secList = BOOK.filter(s=>s.groups);
+
+  const roster = EDITORS.length
+    ? EDITORS.map((e,i)=>{
+        const lvl = e.level || 'editor';
+
+        if(e.locked){
+          return '<div class="ed-card locked-card">'
+          + '<div class="bk-row mk-row" style="padding:0;background:none">'
+          +   '<span class="ed-owner">🔒 ' + esc(e.name || 'Owner') + '</span>'
+          +   '<span class="ed-owner-role">' + esc(e.role || 'Owner') + '</span>'
+          +   '<span class="btn primary" style="cursor:default">👑 Owner</span>'
+          + '</div>'
+          + '<p class="ed-note">Full rights everywhere, permanently. This entry is locked: it cannot be renamed, '
+          + 'demoted or removed from inside the page by anyone, including someone editing as an owner. '
+          + 'Changing it means editing the rulebook file itself.</p></div>';
+        }
+        const mine = e.sections || [];
+        const all = mine.indexOf('*') > -1;
+        const chips = secList.map(s=>
+          '<button class="pick '+((all||mine.indexOf(s.id)>-1)?'tone-green on':'tone-none')+'"'
+          + (owner?'':' disabled')
+          + ' data-edsec="'+i+'" data-sec="'+s.id+'">'+esc(s.emoji||'')+' '+esc(s.name)+'</button>').join('')
+          + '<button class="pick '+(all?'tone-green on':'tone-none')+'"'+(owner?'':' disabled')
+          + ' data-edsec="'+i+'" data-sec="*">Every section</button>';
+
+        return '<div class="ed-card">'
+        + '<div class="bk-row mk-row" style="padding:0;background:none">'
+        +   '<input class="ed-input" data-edname="'+i+'" value="'+esc(e.name||'')+'" placeholder="Name" aria-label="Name" style="flex:1;min-width:120px"'+(owner?'':' disabled')+'>'
+        +   '<input class="ed-input" data-edrole="'+i+'" value="'+esc(e.role||'')+'" placeholder="Role — e.g. Illegal Team" aria-label="Role" style="flex:1;min-width:120px"'+(owner?'':' disabled')+'>'
+        +   '<button class="btn '+(lvl==='owner'?'primary':'ghost')+'" data-edlevel="'+i+'"'+(owner?'':' disabled')+'>'
+        +     (lvl==='owner' ? '👑 Owner' : '✎ Editor') + '</button>'
+        +   '<button class="btn '+(e.granted?'primary':'ghost')+'" data-edgrant="'+i+'"'+(owner?'':' disabled')+'>'
+        +     (e.granted ? 'Has access' : 'Not granted yet') + '</button>'
+        +   (owner ? '<button class="icon-btn del" data-eddel="'+i+'" title="Remove from the roster">✕</button>' : '')
+        + '</div>'
+        + (lvl === 'owner'
+            ? '<p class="ed-note">Full rights everywhere, including removing rules, pages and markers.</p>'
+            : '<div class="ed-perms"><span class="ed-lab">Can edit and add in</span><div class="picks">'+chips+'</div>'
+              + '<p class="ed-note">Cannot remove anything — only an owner can.</p></div>')
+        + '</div>';
+      }).join('')
+    : '<p class="hint" style="margin:0;padding:14px 15px;background:var(--panel)">Nobody listed yet.</p>';
+
+  const q = auditFilter.toLowerCase();
+  const entries = AUDIT.filter(e => !q ||
+    (e.by||'').toLowerCase().includes(q) ||
+    (e.note||'').toLowerCase().includes(q) ||
+    (e.changes||[]).join(' ').toLowerCase().includes(q));
+
+  const log = entries.length
+    ? entries.map(e =>
+        '<div class="audit">'
+        + '<div class="audit-head"><span class="audit-who">'+esc(e.by || 'Unnamed editor')+'</span>'
+        + '<span class="audit-when">'+esc(fmtWhen(e.at))+'</span></div>'
+        + (e.note ? '<div class="audit-note">'+esc(e.note)+'</div>' : '')
+        + ((e.changes||[]).length
+            ? '<ul class="audit-list">'+e.changes.map(c=>'<li>'+esc(c)+'</li>').join('')+'</ul>'
+            : '<div class="audit-note" style="color:var(--muted)">No content changes recorded.</div>')
+        + '</div>').join('')
+    : '<p class="hint" style="margin:0">' + (AUDIT.length ? 'Nothing matches that search.' : 'No changes published yet. The first publish from this page starts the log.') + '</p>';
+
+  return '<div class="wrap wide">'
+  + '<header class="sec-head"><div class="eyebrow">Admin</div>'
+  + '<h1>' + glyph('🛡️','h1') + 'Admin</h1>'
+  + '<p class="lede">Who looks after this rulebook, and every change that has been published to it.</p></header>'
+
+  + '<section class="group"><div class="group-head"><h2>' + glyph('🔑','h2') + 'Who can edit</h2></div>'
+  + '<div class="notice"><p><strong>Access is granted on the artifact itself, not here.</strong> Open the share menu on this page and give the person <em>edit</em> access. They reload, and the Edit button appears for them.</p>'
+  + '<p>Anyone you have not granted edit access to can read the rulebook but cannot publish — the refusal happens on the server, so it holds no matter what this page shows them.</p>'
+  + '<p>The list below is your own record of who is supposed to have it, and it sets what the interface offers each person: which sections they may edit and add in, and that <strong>only an owner can remove anything</strong>. It keeps people in their lane and prevents accidents — it is not a security boundary, which is why every change lands in the audit log below.</p></div>'
+  + '<div class="bk-list" style="margin-top:16px">'+roster+'</div>'
+  + (owner
+      ? '<div class="add-row"><button class="btn" id="edAdd">+ Add someone to the roster</button></div>'
+      : '<p class="ed-note" style="margin-top:14px">You are listed as an editor, so the roster is read-only for you.</p>')
+  + '</section>'
+
+  + '<section class="group"><div class="group-head"><h2>' + glyph('📋','h2') + 'Audit log</h2>'
+  + '<span class="gid">'+AUDIT.length+' publish'+(AUDIT.length===1?'':'es')+' recorded</span></div>'
+  + '<div class="notice"><p>Every publish records what changed. The name is the one the editor typed when publishing — for the verified account behind a change, use the artifact\'s own version history.</p></div>'
+  + '<input class="ed-input" id="auditFind" placeholder="Filter by name, note, or rule ID…" value="'+esc(auditFilter)+'" style="margin:16px 0 4px">'
+  + log + '</section>'
+
+  + '<section class="group"><div class="group-head"><h2>' + glyph('💾','h2') + 'Backups &amp; book</h2></div>'
+  + '<div class="stats">'
+  +   '<div class="stat"><b>'+totalRules()+'</b><span>rules</span></div>'
+  +   '<div class="stat"><b>'+pages+'</b><span>pages</span></div>'
+  +   '<div class="stat"><b>'+BOOK.filter(s=>s.groups).length+'</b><span>sections</span></div>'
+  +   '<div class="stat"><b>'+MARKERS.length+'</b><span>markers</span></div>'
+  +   '<div class="stat"><b>'+BACKUPS.length+'</b><span>backups kept</span></div>'
+  + '</div>'
+  + archiveStatus()
+  + '<div class="add-row"><button class="btn" id="backupsBtn2">Open backups</button>'
+  + (dl ? '<button class="btn primary" id="archiveBtn">⬇ Download full archive</button>' : '')
+  + '<button class="btn" id="markersBtn">Edit markers…</button></div>'
+  + '<div class="notice" style="margin-top:20px"><p><strong>What is actually protected.</strong></p>'
+  + '<p><strong>1 · The archive file you download.</strong> Every rule, marker, the roster, the audit log and the kept backups, in one file. It sits on your machine — no editor can reach it, change it, or delete it. This is the copy that is genuinely yours.</p>'
+  + '<p><strong>2 · The artifact\'s version history.</strong> Every publish is kept as its own version, attributed to the account that made it. Editors cannot remove versions, so this is the tamper-proof record of what the rulebook said and when.</p>'
+  + '<p><strong>3 · The backups inside this page.</strong> Convenient and one click to restore — but they live in the page, so anyone you have given edit access can publish over them. Treat them as an undo button, not a vault.</p>'
+  + '<p>Download the archive after any big change, and access stays worth exactly what you grant it to.</p></div></section>'
+
+  + '<footer class="sec-foot"><div class="pager"><button data-goto="'+BOOK[0].id+'">'
+  + '<span class="dir">← Back</span><span class="ttl">The rulebook</span></button><span></span></div></footer>'
+  + '</div>';
+}
+
+function viewSearch(query){
+  const q = query.toLowerCase();
+  const hits = INDEX.filter(e=>e.text.toLowerCase().includes(q));
+  if(!hits.length){
+    return '<div class="wrap"><div class="results-head"><div class="eyebrow">Search</div><h1>No matches</h1>'
+      + '<p class="lede">Nothing in the book mentions “'+esc(query)+'”. Try a shorter word, or a rule ID like CMB-02.</p></div></div>';
+  }
+  return '<div class="wrap"><div class="results-head"><div class="eyebrow">Search</div><h1>'
+    + hits.length + ' result' + (hits.length>1?'s':'') + '</h1></div>'
+    + hits.map(e=>{
+        const plain = e.text.replace(e.r.id,'').replace(e.r.t,'').trim();
+        const at = plain.toLowerCase().indexOf(q);
+        const from = Math.max(0, at-70);
+        const snip = (from>0?'…':'') + plain.slice(from, from+200) + (plain.length>from+200?'…':'');
+        return '<button class="hit" data-goto="'+e.sec.id+'" data-rule="'+e.r.id+'">'
+          + '<div class="h-crumb">'+esc(e.sec.emoji||'')+' '+esc(e.sec.name)+' · '+esc(e.gr.name)+' · '+esc(e.r.id)+'</div>'
+          + '<div class="h-title">'+esc(e.r.t)+'</div><div class="h-snip">'+esc(snip)+'</div></button>';
+      }).join('') + '</div>';
+}
+
+function highlight(root, query){
+  const q = query.toLowerCase();
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const targets = [];
+  while(walker.nextNode()){
+    const n = walker.currentNode;
+    if(n.parentElement.closest('mark')) continue;
+    if(n.nodeValue.toLowerCase().includes(q)) targets.push(n);
+  }
+  targets.forEach(n=>{
+    const frag = document.createDocumentFragment();
+    let s = n.nodeValue, i;
+    while((i = s.toLowerCase().indexOf(q)) !== -1){
+      frag.appendChild(document.createTextNode(s.slice(0,i)));
+      const m = document.createElement('mark');
+      m.textContent = s.slice(i,i+q.length);
+      frag.appendChild(m);
+      s = s.slice(i+q.length);
+    }
+    frag.appendChild(document.createTextNode(s));
+    n.parentNode.replaceChild(frag,n);
+  });
+}
+
+/* ---------------- routing ---------------- */
+
+let route = {sec:null, rule:null, group:null, admin:false};
+
+function readUrl(){
+  const h = decodeURIComponent(location.hash.replace(/^#/,''));
+  const parts = h.split('/');
+  route = {sec: BOOK.some(x=>x.id===parts[0]) ? parts[0] : null, rule: parts[1]||null, group:null, admin: parts[0]==="admin"};
+}
+
+function render(){
+  const q = qInput.value.trim();
+  if(q.length >= 2 && !editing){
+    page.innerHTML = viewSearch(q);
+    highlight(page,q);
+    renderNav(null);
+    return;
+  }
+
+  if(route.admin){
+    page.innerHTML = viewAdmin();
+    renderNav(null);
+    if(!route.keepScroll) window.scrollTo(0,0);
+    route.keepScroll = false;
+    return;
+  }
+
+  const sec = BOOK.find(s=>s.id===route.sec);
+  if(!sec){
+    page.innerHTML = viewHome();
+    renderNav(null);
+    window.scrollTo(0,0);
+    return;
+  }
+
+  page.innerHTML = viewSection(sec);
+  renderNav(sec.id);
+
+  const target = route.rule  ? document.getElementById(sec.id+'/'+route.rule)
+               : route.group ? document.getElementById('g-'+sec.id+'-'+route.group)
+               : null;
+  if(target) target.scrollIntoView({block: route.rule ? 'center' : 'start'});
+  else window.scrollTo(0,0);
+}
+
+function go(secId, ruleId, groupId){
+  qInput.value = '';
+  route = {sec:secId||null, rule:ruleId||null, group:groupId||null, admin:false};
+  document.body.classList.remove('nav-open');
+  openRule = null;
+  try{
+    history.pushState(null,'', secId ? '#'+secId+(ruleId?'/'+ruleId:'') : location.pathname+location.search);
+  }catch(e){}
+  render();
+}
+
+/* ---------------- editing ---------------- */
+
+let cap = null;            /* the artifact capability, once it resolves */
+let editing = false;
+let dirty = false;
+let openRule = null;       /* rule id whose form is open */
+
+const DRAFT = 'msrp-rulebook-draft-v1';
+const RO_KEY = 'msrp-rulebook-readonly-v1';
+
+/* Who may edit is decided by the artifact's own sharing, and enforced when
+   publishing — the page cannot ask who is looking. So the button shows until
+   a publish is refused, after which we keep it out of this viewer's way for a
+   week (not forever: the owner may grant them access later). */
+function rememberReadOnly(){
+  try{ localStorage.setItem(RO_KEY, String(Date.now())); }catch(e){}
+}
+function wasRefusedRecently(){
+  try{
+    const t = Number(localStorage.getItem(RO_KEY) || 0);
+    return t > 0 && (Date.now() - t) < 7*24*60*60*1000;
+  }catch(e){ return false; }
+}
+
+function markDirty(){
+  dirty = true;
+  document.body.classList.add('dirty');
+}
+
+function toast(msg, kind){
+  const t = $('#toast');
+  $('#toastMsg').textContent = msg;
+  $('#toastIco').textContent = kind==='bad' ? '!' : (kind==='good' ? '✓' : '•');
+  t.className = 'toast show' + (kind ? ' '+kind : '');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(()=>{ t.className = 'toast'; }, kind==='bad' ? 9000 : 4500);
+}
+
+function findRule(id){
+  for(const sec of BOOK){
+    for(const g of (sec.groups||[])){
+      const i = g.rules.findIndex(r=>r.id===id);
+      if(i>-1) return {sec, g, r:g.rules[i], i};
+    }
+  }
+  return null;
+}
+
+function nextId(prefix){
+  let max = 0;
+  BOOK.forEach(s=>(s.groups||[]).forEach(g=>g.rules.forEach(r=>{
+    const m = String(r.id).match(/^(.+)-(\d+)$/);
+    if(m && m[1]===prefix) max = Math.max(max, parseInt(m[2],10));
+  })));
+  return prefix + '-' + String(max+1).padStart(2,'0');
+}
+
+function currentSection(){ return BOOK.find(s=>s.id===route.sec); }
+
+/* Rule text is edited as plain text — blank lines are paragraphs, "- " lines
+   are bullets — and stored as HTML. Inline <strong> <em> <code> survive the
+   round trip in both directions. */
+
+const INLINE_OK = /&lt;(\/?)(strong|em|b|i|code|br\s*\/?)&gt;/gi;
+
+function htmlToText(html){
+  return String(html)
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/li>/gi, '\n')
+    .replace(/<li>/gi, '- ')
+    .replace(/<\/?(ul|ol)>/gi, '\n\n')
+    .replace(/<\/?(p|div)>/gi, '\n\n')
+    .replace(/[ \t]+\n/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
+function textToHtml(text){
+  const line = l => l
+    .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(INLINE_OK, '<$1$2>');
+  return String(text).trim().split(/\n{2,}/).map(block=>{
+    const lines = block.split('\n').map(l=>l.trim()).filter(Boolean);
+    if(!lines.length) return '';
+    if(lines.every(l=>/^[-*]\s+/.test(l)))
+      return '<ul>' + lines.map(l=>'<li>'+line(l.replace(/^[-*]\s+/,''))+'</li>').join('') + '</ul>';
+    return '<p>' + lines.map(line).join('<br>') + '</p>';
+  }).join('');
+}
+
+/* plain text in, tidy HTML out — and never let markup that runs script through */
+function normalizeBody(text){
+  let s = String(text).trim();
+  s = /<(p|ul|ol|li|div|h[1-6]|blockquote|table)\b/i.test(s) ? s : textToHtml(s);
+  return s.replace(/<\s*\/?\s*(script|iframe|object|embed|style|link|meta)\b[^>]*>/gi,'')
+          .replace(/\son\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi,'')
+          .replace(/javascript:/gi,'');
+}
+
+function afterStructuralChange(){
+  INDEX = buildIndex();
+  refreshStats();
+  markDirty();
+  render();
+}
+
+function syncBarHeight(){
+  const bar = $('.bar');
+  if(bar) document.documentElement.style.setProperty('--barH', Math.round(bar.getBoundingClientRect().height) + 'px');
+}
+addEventListener('resize', syncBarHeight);
+
+function renderWhoAmI(){
+  const sel = $('#whoAmI');
+  if(!sel) return;
+  const who = identityName();
+  sel.innerHTML = '<option value="__owner__">Owner (full rights)</option>'
+    + EDITORS.filter(e=>e.name).map(e=>
+        '<option value="'+esc(e.name)+'"'+(who===e.name?' selected':'')+'>'
+        + esc(e.name) + (e.role ? ' · '+esc(e.role) : '') + '</option>').join('');
+  if(!who || who === '__owner__') sel.value = '__owner__';
+}
+
+function setEditing(on){
+  editing = on;
+  openRule = null;
+  document.body.classList.toggle('editing', on);
+  renderWhoAmI();
+  syncBarHeight();
+  $('#editBtn').textContent = on ? 'Reading view' : 'Edit rulebook';
+  if(on && qInput.value){ qInput.value=''; }
+  if(on && !route.sec) go(BOOK[0].id);
+  else render();
+}
+
+/* --- the page rebuilds itself from its own source, then publishes it --- */
+function buildDoc(){
+  const json = JSON.stringify({book:BOOK, markers:MARKERS, editors:EDITORS, audit:AUDIT, backups:BACKUPS}, null, 1).split('<').join('\\u003c');
+  const S = '<' + 'script', E = '<' + '/script' + '>';
+  return '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+    + '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+    + '<title>Mainstreet RP Rulebook</title>\n'
+    + FONT_SRC + '\n<style id="rb-style">' + STYLE_SRC + '</style>\n</head>\n<body>\n'
+    + SHELL_SRC + '\n'
+    + S + ' type="application/json" id="book-data">' + json + E + '\n'
+    + S + '>' + ENGINE_SRC + E + '\n</body>\n</html>';
+}
+
+const ARCHIVE_KEY = 'msrp-rulebook-archived';
+function lastArchive(){
+  try{ return JSON.parse(localStorage.getItem(ARCHIVE_KEY) || 'null'); }catch(e){ return null; }
+}
+
+/* ---------------- who is editing, and what they may touch ----------------
+   The roster decides what the interface offers. It keeps people in their own
+   sections and keeps deletion with the owner; it is not a security boundary,
+   because anyone with artifact edit access can publish regardless. The audit
+   log is what makes it stick. */
+
+const ID_KEY = 'msrp-rulebook-identity';
+
+/* Held in memory first, so the choice survives a browser that refuses
+   storage (a private window, blocked site data) for the whole session. */
+let IDENTITY = null;
+
+function identityName(){
+  if(IDENTITY === null){
+    try{ IDENTITY = localStorage.getItem(ID_KEY) || ''; }catch(e){ IDENTITY = ''; }
+  }
+  return IDENTITY;
+}
+function setIdentity(name){
+  IDENTITY = name || '';
+  try{ localStorage.setItem(ID_KEY, IDENTITY); }catch(e){}
+}
+
+/* No roster, or nobody chosen yet, means full rights — a book with no
+   permissions set behaves exactly as it did before. */
+function identity(){
+  const who = identityName();
+  if(who && who !== '__owner__'){
+    const e = EDITORS.find(x => (x.name||'') === who);
+    if(e) return {name:e.name, level:e.level || 'editor', sections:e.sections || []};
+  }
+  return {name:'Owner', level:'owner', sections:['*']};
+}
+
+const isOwner = () => identity().level === 'owner';
+
+function mayEdit(secId){
+  const me = identity();
+  if(me.level === 'owner') return true;
+  const s = me.sections || [];
+  return s.indexOf('*') > -1 || s.indexOf(secId) > -1;
+}
+
+const NAME_KEY = 'msrp-rulebook-editor-name';
+function editorName(){ try{ return localStorage.getItem(NAME_KEY) || ''; }catch(e){ return ''; } }
+function setEditorName(v){ try{ localStorage.setItem(NAME_KEY, v || ''); }catch(e){} }
+
+async function publishNow(note, by){
+  if(note){
+    const log = logSection();
+    if(log){
+      const today = new Date();
+      const stamp = String(today.getMonth()+1).padStart(2,'0') + '/'
+                  + String(today.getDate()).padStart(2,'0') + '/' + today.getFullYear();
+      const first = log.changelog[0];
+      if(first && first.date === stamp){
+        first.adds = (first.adds||[]).concat([esc(note)]);
+      }else{
+        log.changelog.unshift({date:stamp, title:'Rulebook updated', adds:[esc(note)]});
+      }
+    }
+  }
+
+  if(by) setEditorName(by);
+
+  /* what this publish actually changes, recorded before it goes out */
+  AUDIT.unshift({
+    at: new Date().toISOString(),
+    by: (by || editorName() || '').trim(),
+    note: note || '',
+    changes: diffBooks(ORIGINAL, BOOK, ORIGINAL_MARKERS, MARKERS)
+              .concat(diffEditors(ORIGINAL_EDITORS, EDITORS))
+  });
+  AUDIT = AUDIT.slice(0, MAX_AUDIT);
+
+  /* keep the version being replaced, so it can be rolled back from the page */
+  BACKUPS.unshift({
+    at: new Date().toISOString(),
+    note: note || '',
+    rules: ORIGINAL.reduce((n,s)=>n+(s.groups||[]).reduce((m,g)=>m+g.rules.length,0),0),
+    book: ORIGINAL
+  });
+  BACKUPS = BACKUPS.slice(0, MAX_BACKUPS);
+
+  const html = buildDoc();
+  try{ sessionStorage.setItem(DRAFT, JSON.stringify(BOOK)); }catch(e){}
+
+  $('#publishBtn').disabled = true;
+  toast('Publishing…');
+
+  try{
+    await cap.publish(html);
+    try{ sessionStorage.removeItem(DRAFT); }catch(e){}
+    ORIGINAL = clone(BOOK);
+    ORIGINAL_MARKERS = clone(MARKERS);
+    ORIGINAL_EDITORS = clone(EDITORS);
+    dirty = false;
+    document.body.classList.remove('dirty');
+    toast('Published. Everyone reading the rulebook is being updated now.', 'good');
+  }catch(err){
+    const code = (err && err.code) || 'upstream_error';
+    BACKUPS.shift();               /* nothing was replaced, so drop the snapshot */
+    AUDIT.shift();
+    $('#publishBtn').disabled = false;
+    if(code === 'conflict'){
+      toast('Someone else published first — this page is reloading to their version. Your edits are kept for one restore.', 'bad');
+    }else if(code === 'not_writer' || code === 'not_granted' || code === 'consent_required' || code === 'not_declared'){
+      setEditing(false);
+      $('#editBtn').classList.add('hide');
+      rememberReadOnly();
+      toast('This view is read-only — only people the owner has given edit access can publish. Nothing you changed was saved or sent to anyone.', 'bad');
+    }else if(code === 'too_large'){
+      toast('The rulebook is too large to publish. Trim some rule text and try again.', 'bad');
+    }else if(code === 'rate_limited'){
+      toast('Publishing too often — wait a moment, then publish again.', 'bad');
+    }else{
+      toast('Publishing failed ('+code+'). Your edits are still here — try again in a moment.', 'bad');
+    }
+  }
+}
+
+/* ---------------- sheet (publish / add page dialogs) ---------------- */
+
+let sheetHandler = null;
+function openSheet(o){
+  $('#sheetTitle').textContent = o.title;
+  $('#sheetBody').textContent = o.body || '';
+  $('#sheetBody').style.display = o.body ? '' : 'none';
+  $('#sheetFields').innerHTML = o.fields || '';
+  $('#sheetCancel').textContent = o.cancel || 'Cancel';
+  const ok = $('#sheetOk');
+  if(o.ok){ ok.style.display = ''; ok.textContent = o.ok; } else { ok.style.display = 'none'; }
+  sheetHandler = o.onOk || null;
+  $('#sheet').classList.add('show');
+  const first = $('#sheetFields input:not([type=file]), #sheetFields textarea');
+  if(first) first.focus();
+}
+function closeSheet(){ $('#sheet').classList.remove('show'); sheetHandler = null; }
+
+/* ---------------- backups ---------------- */
+
+let dl = null;   /* the downloads capability, once it resolves */
+
+function fmtWhen(iso){
+  const d = new Date(iso);
+  if(isNaN(d.getTime())) return String(iso);
+  return d.toLocaleString(undefined,{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+
+function stamp(){
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+
+function validBook(b){
+  return Array.isArray(b) && b.length > 0 && b.every(s =>
+    s && typeof s.id === 'string' && typeof s.name === 'string' &&
+    (Array.isArray(s.groups) || Array.isArray(s.changelog)));
+}
+
+function loadIntoEditor(book, where){
+  BOOK.length = 0;
+  clone(book).forEach(s=>BOOK.push(s));
+  closeSheet();
+  openRule = null;
+  afterStructuralChange();
+  toast(where + ' loaded. Read it over, then Publish to make it live for everyone.', 'good');
+}
+
+async function saveBackupFile(book, label, full){
+  if(!dl){ toast('Saving a file is not available in this view.', 'bad'); return; }
+  const payload = full
+    ? {kind:'full-archive', savedAt:new Date().toISOString(),
+       book:book, markers:MARKERS, editors:EDITORS, audit:AUDIT, backups:BACKUPS}
+    : {kind:'rulebook', savedAt:new Date().toISOString(), book:book, markers:MARKERS};
+  try{
+    await dl.save({
+      filename: 'mainstreet-rulebook-' + (full ? 'archive-' : '') + label + '.json',
+      data: JSON.stringify(payload, null, 1)
+    });
+    if(full){ try{ localStorage.setItem(ARCHIVE_KEY, JSON.stringify({at:new Date().toISOString(), audit:AUDIT.length})); }catch(e){} }
+    toast(full ? 'Full archive saved — keep it somewhere only you control.' : 'Backup file saved.', 'good');
+    if(full && route.admin){ route.keepScroll = true; render(); }
+  }catch(err){
+    const c = (err && err.code) || 'unavailable';
+    if(c === 'declined') return;
+    toast(c === 'too_large' ? 'That backup is too large to save.' : 'The backup could not be saved ('+c+').', 'bad');
+  }
+}
+
+/* ---------------- change detection for the audit log ---------------- */
+
+function indexRules(book){
+  const map = {};
+  book.forEach(sec => (sec.groups||[]).forEach(g => g.rules.forEach(r => {
+    map[r.id] = {r: r, page: g.name, section: sec.name};
+  })));
+  return map;
+}
+
+function diffBooks(before, after, markersBefore, markersAfter){
+  const A = indexRules(before), B = indexRules(after), out = [];
+  const q = s => '“' + s + '”';
+
+  Object.keys(B).forEach(id => {
+    if(!A[id]){ out.push('Added ' + id + ' ' + q(B[id].r.t) + ' to ' + B[id].page); return; }
+    const a = A[id].r, b = B[id].r, bits = [];
+    if(a.t !== b.t) bits.push('title, now ' + q(b.t));
+    if(a.b !== b.b) bits.push('rule text');
+    if((a.f||'') !== (b.f||'')){
+      const name = x => x ? ((markersAfter.find(m=>m.id===x)||{}).label || x) : 'none';
+      bits.push('marker ' + name(a.f) + ' → ' + name(b.f));
+    }
+    if(bits.length) out.push('Edited ' + id + ' ' + q(a.t) + ' — ' + bits.join(', '));
+    if(A[id].page !== B[id].page) out.push('Moved ' + id + ' from ' + A[id].page + ' to ' + B[id].page);
+  });
+
+  Object.keys(A).forEach(id => {
+    if(!B[id]) out.push('Removed ' + id + ' ' + q(A[id].r.t) + ' from ' + A[id].page);
+  });
+
+  /* pages and sections */
+  const pagesOf = book => {
+    const m = {};
+    book.forEach(sec => (sec.groups||[]).forEach(g => m[sec.id+'/'+g.id] = {name:g.name, emoji:g.emoji, sec:sec.name}));
+    return m;
+  };
+  const PA = pagesOf(before), PB = pagesOf(after);
+  Object.keys(PB).forEach(k => {
+    if(!PA[k]) out.push('Added the page ' + q(PB[k].name) + ' to ' + PB[k].sec);
+    else{
+      if(PA[k].name !== PB[k].name) out.push('Renamed the page ' + q(PA[k].name) + ' to ' + q(PB[k].name));
+      if((PA[k].emoji||'') !== (PB[k].emoji||'')) out.push('Changed the emoji on ' + q(PB[k].name));
+    }
+  });
+  Object.keys(PA).forEach(k => { if(!PB[k]) out.push('Deleted the page ' + q(PA[k].name)); });
+
+  before.forEach(sa => {
+    const sb = after.find(x => x.id === sa.id);
+    if(!sb){ out.push('Removed the section ' + q(sa.name)); return; }
+    if(sa.name !== sb.name) out.push('Renamed the section ' + q(sa.name) + ' to ' + q(sb.name));
+    if(sa.blurb !== sb.blurb) out.push('Reworded the description of ' + q(sb.name));
+  });
+  after.forEach(sb => { if(!before.some(x => x.id === sb.id)) out.push('Added the section ' + q(sb.name)); });
+
+  /* markers */
+  (markersAfter||[]).forEach(mb => {
+    const ma = (markersBefore||[]).find(x => x.id === mb.id);
+    if(!ma){ out.push('Added the marker ' + q(mb.label)); return; }
+    if(ma.label !== mb.label) out.push('Renamed the marker ' + q(ma.label) + ' to ' + q(mb.label));
+    if((ma.emoji||'') !== (mb.emoji||'')) out.push('Changed the emoji on the marker ' + q(mb.label));
+    if((ma.tone||'') !== (mb.tone||'')) out.push('Recoloured the marker ' + q(mb.label) + ' to ' + mb.tone);
+  });
+  (markersBefore||[]).forEach(ma => {
+    if(!(markersAfter||[]).some(x => x.id === ma.id)) out.push('Deleted the marker ' + q(ma.label));
+  });
+
+  return out;
+}
+
+/* Roster changes are logged too, so tampering with who holds what is
+   visible even to someone who worked around the interface. */
+function diffEditors(before, after){
+  const out = [], q = s => '“' + s + '”';
+  const key = e => (e.name || '') + '|' + (e.addedAt || '');
+  const A = {}, B = {};
+  (before||[]).forEach(e => A[key(e)] = e);
+  (after||[]).forEach(e => B[key(e)] = e);
+
+  Object.keys(B).forEach(k => {
+    const b = B[k], a = A[k];
+    if(!a){ out.push('Added ' + q(b.name || 'someone') + ' to the roster as ' + (b.level||'editor')); return; }
+    if((a.level||'editor') !== (b.level||'editor'))
+      out.push('Changed ' + q(b.name) + ' from ' + (a.level||'editor') + ' to ' + (b.level||'editor'));
+    if((a.sections||[]).join(',') !== (b.sections||[]).join(','))
+      out.push('Changed which sections ' + q(b.name) + ' may edit');
+    if(!!a.granted !== !!b.granted)
+      out.push('Marked ' + q(b.name) + (b.granted ? ' as having edit access' : ' as no longer granted'));
+    if(!!a.locked !== !!b.locked)
+      out.push('⚠ ' + (b.locked ? 'Locked' : 'UNLOCKED') + ' the roster entry for ' + q(b.name));
+  });
+  Object.keys(A).forEach(k => {
+    if(!B[k]) out.push((A[k].locked ? '⚠ Removed the LOCKED owner entry ' : 'Removed ') + q(A[k].name || 'someone') + ' from the roster');
+  });
+  return out;
+}
+
+/* ---------------- markers ---------------- */
+
+const markerUse = id => {
+  let n = 0;
+  BOOK.forEach(s=>(s.groups||[]).forEach(g=>g.rules.forEach(r=>{ if(r.f===id) n++; })));
+  return n;
+};
+
+function openMarkers(){
+  const rows = MARKERS.map((m,i)=>
+    '<div class="bk-row mk-row">'
+    + '<input class="ed-input ed-emoji" data-mkemoji="'+i+'" value="'+esc(m.emoji||'')+'" maxlength="4" aria-label="Marker emoji">'
+    + '<input class="ed-input" data-mklabel="'+i+'" value="'+esc(m.label)+'" aria-label="Marker name" style="flex:1;min-width:110px">'
+    + '<div class="tones">' + TONES.map(t=>
+        '<button class="tone-dot tone-'+t+((m.tone||'grey')===t?' on':'')+'" data-mktone="'+i+'" data-tone="'+t+'" title="'+t+'" aria-label="Colour: '+t+'"></button>').join('')
+    + '</div>'
+    + '<div class="bk-acts"><span class="mk-use">'+markerUse(m.id)+' rules</span>'
+    + (isOwner() ? '<button class="icon-btn del" data-mkdel="'+i+'" title="Delete this marker">✕</button>'
+                 : '<button class="icon-btn" disabled title="Only the owner can remove markers">✕</button>') + '</div></div>').join('');
+
+  openSheet({
+    title:'Markers',
+    body:'These are the labels that sit beside a rule. Rename them, change the emoji or colour, or add your own — every rule using one updates with it.',
+    fields:'<div class="bk-list">'+rows+'</div>'
+      + '<div class="add-row" style="padding-top:14px"><button class="btn" id="mkAdd">+ Add a marker</button></div>',
+    cancel:'Done'
+  });
+}
+
+function openBackups(){
+  const rows = BACKUPS.length
+    ? BACKUPS.map((b,i)=>
+        '<div class="bk-row"><div class="bk-meta"><div class="bk-when">'+esc(fmtWhen(b.at))+'</div>'
+        + '<div class="bk-note">'+(b.note ? esc(b.note) : 'No note')+' · '+(b.rules==null?'?':b.rules)+' rules</div></div>'
+        + '<div class="bk-acts">'
+        + (dl ? '<button class="btn" data-bkfile="'+i+'">Save file</button>' : '')
+        + '<button class="btn" data-bkload="'+i+'">Restore</button></div></div>').join('')
+    : '<p class="hint" style="margin:0">No snapshots yet. One is kept automatically every time the rulebook is published.</p>';
+
+  openSheet({
+    title:'Backups',
+    body:'The last '+MAX_BACKUPS+' published versions are kept inside this page. Restoring loads one into your editor — nothing changes for anyone else until you publish.',
+    fields:
+      '<div class="bk-list">'+rows+'</div>'
+      + '<div class="bk-row" style="border-top:1px solid var(--line);margin-top:14px;padding-top:16px">'
+      + '<div class="bk-meta"><div class="bk-when">This version</div>'
+      + '<div class="bk-note">'+totalRules()+' rules'+(dirty?' · with your unpublished changes':'')+'</div></div>'
+      + '<div class="bk-acts">'
+      + (dl ? '<button class="btn" data-bkfile="now">Save file</button>' : '')
+      + '<button class="btn" id="bkImport">Load a file…</button></div></div>',
+    cancel:'Close'
+  });
+}
+
+$('#sheetCancel').addEventListener('click', closeSheet);
+$('#sheetOk').addEventListener('click', ()=>{
+  const h = sheetHandler;
+  const values = {};
+  $$('#sheetFields [data-field]').forEach(el=>values[el.dataset.field] = el.value.trim());
+  closeSheet();
+  if(h) h(values);
+});
+
+/* ---------------- events ---------------- */
+
+document.addEventListener('click', e=>{
+  const t = e.target;
+
+  const goBtn = t.closest('[data-goto]');
+  if(goBtn){ go(goBtn.dataset.goto, goBtn.dataset.rule, goBtn.dataset.group); return; }
+
+  const copy = t.closest('[data-copy]');
+  if(copy){
+    const url = location.origin + location.pathname + location.search + '#' + copy.dataset.copy;
+    const done = ()=>{ copy.classList.add('done'); setTimeout(()=>copy.classList.remove('done'),1400); };
+    if(navigator.clipboard) navigator.clipboard.writeText(url).then(done,done); else done();
+    return;
+  }
+
+  const ack = t.closest('[data-ack]');
+  if(ack){
+    const id = ack.dataset.ack;
+    readSet.has(id) ? readSet.delete(id) : readSet.add(id);
+    saveRead();
+    const on = readSet.has(id);
+    ack.classList.toggle('on', on);
+    ack.lastElementChild.textContent = on ? 'You have read this section' : 'Mark this section as read';
+    renderNav(id);
+    return;
+  }
+
+  if(t.closest('#sizeBtn')){ setTextSize(textSize % 3 + 1); return; }
+  if(t.closest('#brandBtn')){ go(null); return; }
+  if(t.closest('#burger')){ document.body.classList.add('nav-open'); return; }
+  if(t.closest('#scrim')){ document.body.classList.remove('nav-open'); return; }
+
+  if(t.closest('#editBtn')){ setEditing(!editing); return; }
+  if(t.closest('#exitEdit')){ setEditing(false); return; }
+
+  if(t.closest('#publishBtn')){
+    if(!dirty){ toast('Nothing to publish yet — make a change first.'); return; }
+    openSheet({
+      title:'Publish to everyone',
+      body:'This saves a new version of the rulebook. Every open view reloads to it, and the version it replaces is kept as a backup.',
+      fields:'<div class="form" style="padding:0;border:0;background:none;margin:0">'
+        + '<div><label for="pby">Your name (recorded in the audit log)</label>'
+        + '<input id="pby" type="text" data-field="by" value="'+esc(editorName() || identity().name)+'" placeholder="e.g. Morgan"></div>'
+        + '<div><label for="pn">What changed? (optional — adds a line to Rulebook Updates)</label>'
+        + '<input id="pn" type="text" data-field="note" placeholder="e.g. Added the KOS duration rule"></div></div>',
+      ok:'Publish',
+      onOk: v => publishNow(v.note, v.by)
+    });
+    return;
+  }
+
+  if(t.closest('#backupsBtn')){ openBackups(); return; }
+
+  const bkfile = t.closest('[data-bkfile]');
+  if(bkfile){
+    const which = bkfile.dataset.bkfile;
+    if(which === 'now') saveBackupFile(BOOK, stamp());
+    else{
+      const b = BACKUPS[+which];
+      if(b) saveBackupFile(b.book, (b.at||'').slice(0,10) || stamp());
+    }
+    return;
+  }
+
+  const bkload = t.closest('[data-bkload]');
+  if(bkload){
+    const b = BACKUPS[+bkload.dataset.bkload];
+    if(b && confirm('Restore the version from ' + fmtWhen(b.at) + '?\n\nIt replaces what is on your screen right now. Nothing changes for anyone else until you publish.')){
+      loadIntoEditor(b.book, 'Backup from ' + fmtWhen(b.at));
+    }
+    return;
+  }
+
+  if(t.closest('#bkImport')){ $('#importFile').click(); return; }
+
+  if(t.closest('#adminBtn')){
+    qInput.value = '';
+    route = {sec:null, rule:null, group:null, admin:true};
+    document.body.classList.remove('nav-open');
+    try{ history.pushState(null,'','#admin'); }catch(e){}
+    render();
+    return;
+  }
+
+  if(t.closest('#markersBtn')){ openMarkers(); return; }
+  if(t.closest('#backupsBtn2')){ openBackups(); return; }
+  if(t.closest('#archiveBtn')){ saveBackupFile(BOOK, stamp(), true); return; }
+
+  if(t.closest('#edAdd')){
+    if(!isOwner()){ toast('Only the owner can change the roster.', 'bad'); return; }
+    EDITORS.push({name:'', role:'', level:'editor', sections:[], granted:false, addedAt:new Date().toISOString()});
+    markDirty();
+    route.keepScroll = true; render();
+    const inputs = $$('[data-edname]');
+    if(inputs.length) inputs[inputs.length-1].focus();
+    return;
+  }
+
+  const edLevel = t.closest('[data-edlevel]');
+  if(edLevel){
+    if(!isOwner()){ toast('Only the owner can change the roster.', 'bad'); return; }
+    if(EDITORS[+edLevel.dataset.edlevel] && EDITORS[+edLevel.dataset.edlevel].locked){ toast('That entry is locked. It cannot be changed from inside the page.', 'bad'); return; }
+
+    const e = EDITORS[+edLevel.dataset.edlevel];
+    e.level = (e.level === 'owner') ? 'editor' : 'owner';
+    markDirty(); route.keepScroll = true; render();
+    return;
+  }
+
+  const edSec = t.closest('[data-edsec]');
+  if(edSec){
+    if(!isOwner()){ toast('Only the owner can change the roster.', 'bad'); return; }
+    if(EDITORS[+edSec.dataset.edsec] && EDITORS[+edSec.dataset.edsec].locked){ toast('That entry is locked. It cannot be changed from inside the page.', 'bad'); return; }
+
+    const e = EDITORS[+edSec.dataset.edsec];
+    const sec = edSec.dataset.sec;
+    let list = e.sections || [];
+    if(sec === '*'){
+      list = list.indexOf('*') > -1 ? [] : ['*'];
+    }else{
+      list = list.filter(x => x !== '*');
+      list = list.indexOf(sec) > -1 ? list.filter(x => x !== sec) : list.concat([sec]);
+    }
+    e.sections = list;
+    markDirty(); route.keepScroll = true; render();
+    return;
+  }
+
+  const edGrant = t.closest('[data-edgrant]');
+  if(edGrant){
+    if(EDITORS[+edGrant.dataset.edgrant] && EDITORS[+edGrant.dataset.edgrant].locked){ toast('That entry is locked. It cannot be changed from inside the page.', 'bad'); return; }
+
+    const e = EDITORS[+edGrant.dataset.edgrant];
+    e.granted = !e.granted;
+    markDirty();
+    route.keepScroll = true; render();
+    return;
+  }
+
+  const edDel = t.closest('[data-eddel]');
+  if(edDel){
+    if(!isOwner()){ toast('Only the owner can change the roster.', 'bad'); return; }
+    if(EDITORS[+edDel.dataset.eddel] && EDITORS[+edDel.dataset.eddel].locked){ toast('That entry is locked. It cannot be changed from inside the page.', 'bad'); return; }
+
+    const e = EDITORS[+edDel.dataset.eddel];
+    if(confirm('Remove ' + (e.name || 'this person') + ' from the roster?\n\nThis only edits your record — it does not change anyone’s access. Remove that in the share menu.')){
+      EDITORS.splice(+edDel.dataset.eddel,1);
+      markDirty();
+      route.keepScroll = true; render();
+    }
+    return;
+  }
+
+  if(t.closest('#mkAdd')){
+    let base = 'mark', id = base, n = 1;
+    while(markerById(id)){ id = base + (++n); }
+    MARKERS.push({id:id, label:'New marker', emoji:'🔖', tone:'grey'});
+    markDirty(); openMarkers(); render();
+    return;
+  }
+
+  const mkTone = t.closest('[data-mktone]');
+  if(mkTone){
+    MARKERS[+mkTone.dataset.mktone].tone = mkTone.dataset.tone;
+    markDirty(); openMarkers(); render();
+    return;
+  }
+
+  const mkDel = t.closest('[data-mkdel]');
+  if(mkDel){
+    if(!isOwner()){ toast('Only the owner can remove markers.', 'bad'); return; }
+    const m = MARKERS[+mkDel.dataset.mkdel];
+    const used = markerUse(m.id);
+    const msg = used
+      ? 'Delete the “'+m.label+'” marker?\n\n'+used+' rule(s) use it. They keep their text and lose the marker.'
+      : 'Delete the “'+m.label+'” marker?';
+    if(confirm(msg)){
+      BOOK.forEach(s=>(s.groups||[]).forEach(g=>g.rules.forEach(r=>{ if(r.f===m.id) delete r.f; })));
+      MARKERS.splice(+mkDel.dataset.mkdel,1);
+      markDirty(); openMarkers(); render();
+    }
+    return;
+  }
+
+  const setFlag = t.closest('[data-setflag]');
+  if(setFlag){
+    const art = setFlag.closest('[data-rule]');
+    const f = art && findRule(art.dataset.rule);
+    if(f){
+      const id = setFlag.dataset.setflag;
+      if(id) f.r.f = id; else delete f.r.f;
+      markDirty(); render();
+    }
+    return;
+  }
+
+  if(!editing) return;
+
+  /* ---- rule level ---- */
+  const redit = t.closest('[data-redit]');
+  if(redit){ openRule = (openRule===redit.dataset.redit) ? null : redit.dataset.redit; render(); return; }
+
+  if(t.closest('[data-rclose]')){ openRule = null; INDEX = buildIndex(); render(); return; }
+
+  const rmove = t.closest('[data-rmove]');
+  if(rmove){
+    const f = findRule(rmove.dataset.rmove);
+    if(f){
+      const j = f.i + Number(rmove.dataset.dir);
+      if(j>=0 && j<f.g.rules.length){
+        f.g.rules.splice(f.i,1);
+        f.g.rules.splice(j,0,f.r);
+        afterStructuralChange();
+      }
+    }
+    return;
+  }
+
+  const rdel = t.closest('[data-rdel]');
+  if(rdel){
+    if(!isOwner()){ toast('Only the owner can remove rules. You can edit and add.', 'bad'); return; }
+    const f = findRule(rdel.dataset.rdel);
+    if(f && confirm('Delete rule ' + f.r.id + ' — “' + f.r.t + '”?\n\nAny link or report citing this ID will stop resolving.')){
+      f.g.rules.splice(f.i,1);
+      openRule = null;
+      afterStructuralChange();
+    }
+    return;
+  }
+
+  const gadd = t.closest('[data-gadd]');
+  if(gadd){
+    const sec = currentSection();
+    const g = sec.groups.find(x=>x.id===gadd.dataset.gadd);
+    const r = {id: nextId(g.prefix), t:'New rule', b:'<p></p>'};
+    g.rules.push(r);
+    openRule = r.id;
+    afterStructuralChange();
+    const el = document.getElementById(sec.id+'/'+r.id);
+    if(el){ el.scrollIntoView({block:'center'}); const i = el.querySelector('[data-bind="t"]'); if(i){ i.focus(); i.select(); } }
+    return;
+  }
+
+  /* ---- page (group) level ---- */
+  const gmove = t.closest('[data-gmove]');
+  if(gmove){
+    const sec = currentSection();
+    const i = sec.groups.findIndex(x=>x.id===gmove.dataset.gmove);
+    const j = i + Number(gmove.dataset.dir);
+    if(i>-1 && j>=0 && j<sec.groups.length){
+      const [g] = sec.groups.splice(i,1);
+      sec.groups.splice(j,0,g);
+      afterStructuralChange();
+    }
+    return;
+  }
+
+  const gdel = t.closest('[data-gdel]');
+  if(gdel){
+    if(!isOwner()){ toast('Only the owner can remove pages. You can edit and add.', 'bad'); return; }
+    const sec = currentSection();
+    const i = sec.groups.findIndex(x=>x.id===gdel.dataset.gdel);
+    if(i>-1){
+      const g = sec.groups[i];
+      if(confirm('Delete the page “'+g.name+'” and its '+g.rules.length+' rule(s)?')){
+        sec.groups.splice(i,1);
+        afterStructuralChange();
+      }
+    }
+    return;
+  }
+
+  if(t.closest('#pageAdd')){
+    openSheet({
+      title:'Add a page',
+      body:'A page is one group of rules inside this section.',
+      fields:'<div class="form" style="padding:0;border:0;background:none;margin:0">'
+      + '<div><label for="np">Page name</label><input id="np" type="text" data-field="name" placeholder="e.g. Heists &amp; Robbery Crews"></div>'
+      + '<div><label for="nx">Rule ID prefix</label><input id="nx" type="text" data-field="prefix" placeholder="e.g. HST" maxlength="6"></div></div>',
+      ok:'Add page',
+      onOk: v=>{
+        if(!v.name) return;
+        const sec = currentSection();
+        const prefix = (v.prefix || v.name.replace(/[^a-z]/gi,'').slice(0,3)).toUpperCase();
+        let id = v.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || 'page';
+        while(sec.groups.some(g=>g.id===id)) id += '-2';
+        sec.groups.push({id, name:v.name, prefix, rules:[]});
+        afterStructuralChange();
+        const el = document.getElementById('g-'+sec.id+'-'+id);
+        if(el) el.scrollIntoView({block:'center'});
+      }
+    });
+    return;
+  }
+
+  /* ---- changelog ---- */
+  if(t.closest('#logAdd')){
+    const log = logSection();
+    const d = new Date();
+    log.changelog.unshift({
+      date: String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getDate()).padStart(2,'0')+'/'+d.getFullYear(),
+      title:'Rulebook updated', adds:['']
+    });
+    afterStructuralChange();
+    return;
+  }
+
+  const ldel = t.closest('[data-ldel]');
+  if(ldel){
+    const log = logSection();
+    if(confirm('Delete this changelog entry?')){
+      log.changelog.splice(Number(ldel.dataset.ldel),1);
+      afterStructuralChange();
+    }
+    return;
+  }
+});
+
+/* live binding — never re-renders, so typing keeps focus */
+document.addEventListener('input', e=>{
+  const el = e.target;
+
+  /* admin panel — usable without turning on edit mode */
+  if(el.id === 'auditFind'){ auditFilter = el.value; route.keepScroll = true; render(); $('#auditFind').focus(); return; }
+  if(el.dataset.edname !== undefined){ const e=EDITORS[+el.dataset.edname]; if(isOwner() && !e.locked){ e.name = el.value; markDirty(); } return; }
+  if(el.dataset.edrole !== undefined){ const e=EDITORS[+el.dataset.edrole]; if(isOwner() && !e.locked){ e.role = el.value; markDirty(); } return; }
+
+  if(!editing) return;
+
+  const bind = el.dataset.bind;
+  if(bind){
+    const art = el.closest('[data-rule]');
+    const f = art && findRule(art.dataset.rule);
+    if(f){
+      if(bind === 'b') f.r.b = normalizeBody(el.value);
+      else if(bind === 'f'){ if(el.value) f.r.f = el.value; else delete f.r.f; }
+      else f.r.t = el.value;
+      markDirty();
+    }
+    return;
+  }
+
+  if(el.dataset.mklabel !== undefined){
+    MARKERS[+el.dataset.mklabel].label = el.value; markDirty(); render(); return;
+  }
+  if(el.dataset.mkemoji !== undefined){
+    MARKERS[+el.dataset.mkemoji].emoji = el.value.trim(); markDirty(); render(); return;
+  }
+
+  if(el.dataset.gname !== undefined){
+    const sec = currentSection();
+    const g = sec.groups.find(x=>x.id===el.dataset.gname);
+    if(g){ g.name = el.value; markDirty(); renderNav(sec.id); }
+    return;
+  }
+
+  if(el.dataset.gemoji !== undefined){
+    const sec = currentSection();
+    const g = sec.groups.find(x=>x.id===el.dataset.gemoji);
+    if(g){ g.emoji = el.value.trim(); markDirty(); renderNav(sec.id); }
+    return;
+  }
+
+  if(el.hasAttribute('data-semoji')){
+    currentSection().emoji = el.value.trim(); markDirty(); renderNav(route.sec); return;
+  }
+
+  if(el.hasAttribute('data-sname')){ currentSection().name = el.value; markDirty(); renderNav(route.sec); return; }
+  if(el.hasAttribute('data-sblurb')){ currentSection().blurb = el.value; markDirty(); return; }
+
+  const log = logSection();
+  if(el.dataset.ldate !== undefined){ log.changelog[+el.dataset.ldate].date = el.value; markDirty(); return; }
+  if(el.dataset.ltitle !== undefined){ log.changelog[+el.dataset.ltitle].title = el.value; markDirty(); return; }
+  if(el.dataset.litems !== undefined){
+    log.changelog[+el.dataset.litems].adds = el.value.split('\n').filter(x=>x.trim());
+    markDirty(); return;
+  }
+  if(el.dataset.lwas !== undefined){ log.changelog[+el.dataset.lwas].changes[+el.dataset.ci].was = el.value; markDirty(); return; }
+  if(el.dataset.lnow !== undefined){ log.changelog[+el.dataset.lnow].changes[+el.dataset.ci].now = el.value; markDirty(); return; }
+});
+
+$('#importFile').addEventListener('change', e=>{
+  const file = e.target.files && e.target.files[0];
+  e.target.value = '';
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    let book = null;
+    try{
+      const parsed = JSON.parse(reader.result);
+      book = Array.isArray(parsed) ? parsed : (parsed && parsed.book);
+    }catch(err){ book = null; }
+    if(!validBook(book)){ toast('That file is not a rulebook backup.', 'bad'); return; }
+    if(confirm('Load “'+file.name+'” into the editor?\n\nIt replaces what is on your screen right now. Nothing changes for anyone else until you publish.')){
+      const parsedAgain = (function(){ try{ return JSON.parse(reader.result); }catch(e){ return null; } })();
+      if(parsedAgain && Array.isArray(parsedAgain.markers) && parsedAgain.markers.length){
+        MARKERS = clone(parsedAgain.markers);
+      }
+      loadIntoEditor(book, file.name);
+    }
+  };
+  reader.onerror = ()=>toast('That file could not be read.', 'bad');
+  reader.readAsText(file);
+});
+
+document.addEventListener('change', e=>{
+  if(e.target.id === 'whoAmI'){
+    setIdentity(e.target.value);
+    const me = identity();
+    openRule = null;
+    render();
+    toast(me.level === 'owner'
+      ? 'Editing as the owner — full rights.'
+      : 'Editing as ' + me.name + ' — you can edit and add, but not remove.');
+  }
+});
+
+let searchTimer;
+qInput.addEventListener('input', ()=>{ clearTimeout(searchTimer); searchTimer = setTimeout(render,130); });
+
+document.addEventListener('keydown', e=>{
+  if(e.key==='/' && document.activeElement!==qInput && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)){
+    e.preventDefault(); qInput.focus(); qInput.select();
+  }
+  if(e.key==='Escape'){
+    if($('#sheet').classList.contains('show')) closeSheet();
+    else if(document.body.classList.contains('nav-open')) document.body.classList.remove('nav-open');
+    else if(qInput.value){ qInput.value=''; render(); qInput.blur(); }
+  }
+});
+
+window.addEventListener('popstate', ()=>{ qInput.value=''; readUrl(); render(); });
+
+window.addEventListener('beforeunload', e=>{
+  if(dirty){ e.preventDefault(); e.returnValue = ''; }
+});
+
+/* ---------------- boot ---------------- */
+
+try{ setTextSize(Number(localStorage.getItem(SIZE_KEY)) || 1, true); }catch(e){}
+
+refreshStats();
+readUrl();
+render();
+syncBarHeight();
+
+/* unsaved edits from a session that ended in a conflict or a closed tab */
+try{
+  const draft = sessionStorage.getItem(DRAFT);
+  if(draft && draft !== JSON.stringify(BOOK)){
+    $('#restoreBar').classList.add('show');
+    $('#restoreYes').addEventListener('click', ()=>{
+      try{
+        const d = JSON.parse(draft);
+        BOOK.length = 0; d.forEach(s=>BOOK.push(s));
+        $('#restoreBar').classList.remove('show');
+        INDEX = buildIndex(); refreshStats(); markDirty();
+        setEditing(true);
+        toast('Your unpublished edits are back. Publish them when you are ready.', 'good');
+      }catch(err){ toast('Those edits could not be restored.', 'bad'); }
+    });
+    $('#restoreNo').addEventListener('click', ()=>{
+      try{ sessionStorage.removeItem(DRAFT); }catch(err){}
+      $('#restoreBar').classList.remove('show');
+    });
+  }
+}catch(e){}
+
+/* The edit button appears once the runtime hands us the capability — and not
+   at all for a viewer whose publish was already refused this week. */
+if(window.claude && typeof window.claude.use === 'function' && !wasRefusedRecently()){
+  window.claude.use('artifact').then(a=>{
+    if(a){ cap = a; $('#editBtn').classList.remove('hide'); $('#adminBtn').classList.remove('hide'); }
+  }).catch(()=>{});
+  window.claude.use('downloads').then(d=>{ dl = d; }).catch(()=>{});
+}
+</script>

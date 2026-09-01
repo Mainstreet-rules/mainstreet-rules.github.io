@@ -1,0 +1,14 @@
+node_modules/
+dist/.check-build.html
+
+# editor / OS noise
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+*.swp
+.DS_Store
+
+# archives downloaded from the live page — they can contain the roster and
+# the full audit log, so keep them out of the repo
+mainstreet-rulebook-archive-*.json
