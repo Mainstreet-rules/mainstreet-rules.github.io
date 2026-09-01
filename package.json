@@ -1,5 +1,5 @@
 {
-  "name": "mainstreet-rulebook",
+  "name": "mainstreet-rules",
   "version": "1.0.0",
   "private": true,
   "description": "The Mainstreet RP rulebook — a single self-contained page with search, rule IDs, in-page editing and an audit log.",

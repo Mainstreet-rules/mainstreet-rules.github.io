@@ -1,6 +1,6 @@
-# Mainstreet RP Rulebook
+# Mainstreet Rules
 
-The MSRP rulebook as a single self-contained web page: searchable, with every
+The Mainstreet RP rulebook as a single self-contained web page: searchable, with every
 rule carrying its own permanent ID.
 
 **Live:** https://kittyka917.github.io/
