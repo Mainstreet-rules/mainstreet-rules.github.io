@@ -666,19 +666,7 @@
    "tone": "red"
   }
  ],
- "editors": [
-  {
-   "name": "Morgan",
-   "role": "Server Owner",
-   "level": "owner",
-   "sections": [
-    "*"
-   ],
-   "granted": true,
-   "locked": true,
-   "addedAt": "2026-08-31T23:38:08.616Z"
-  }
- ],
+ "editors": [],
  "audit": [],
  "backups": []
 }

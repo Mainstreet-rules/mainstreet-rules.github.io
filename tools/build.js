@@ -18,14 +18,23 @@ const OUT = process.argv[2] || path.join(ROOT, 'dist', 'rulebook.html');
 const data = JSON.parse(fs.readFileSync(DATA, 'utf8'));
 const book = data.book;
 
-// Escape every '<' so the data block can never terminate its own <script> tag.
-// This is the same rule the page applies when it republishes itself.
+/**
+ * PUBLIC BUILD — rules and markers only.
+ *
+ * This page is served to the whole internet from a public repository, and a
+ * static site can hide nothing: whatever ships in the file, any visitor can
+ * read with view-source. So the roster, the audit log and the kept backups are
+ * deliberately NOT built into it. They live only in the staff artifact, which
+ * is shared with approved people and enforces access on the server.
+ *
+ * Do not "helpfully" add them back.
+ */
 const json = JSON.stringify({
   book: book,
   markers: data.markers || [],
-  editors: data.editors || [],
-  audit: data.audit || [],
-  backups: data.backups || []
+  editors: [],
+  audit: [],
+  backups: []
 }, null, 1).split('<').join(String.fromCharCode(92) + 'u003c');
 
 const tpl = fs.readFileSync(TPL, 'utf8');

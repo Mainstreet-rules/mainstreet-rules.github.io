@@ -37,6 +37,16 @@ const dupes = [...new Set(ids.filter((v, i) => ids.indexOf(v) !== i))];
 check(noId === 0, ids.length + ' rules, all with ids', noId + ' rule(s) have no id');
 check(dupes.length === 0, 'no duplicate rule ids', 'duplicate rule ids: ' + dupes.join(', '));
 
+/* 2b — nothing staff-only may enter the public repo or the public page.
+   This repository and the site it serves are both world-readable. */
+const leaks = [];
+if ((data.editors || []).length) leaks.push(data.editors.length + ' roster entries in src/book.json');
+if ((data.audit || []).length) leaks.push(data.audit.length + ' audit entries in src/book.json');
+if ((data.backups || []).length) leaks.push(data.backups.length + ' backups in src/book.json');
+check(leaks.length === 0,
+      'no staff-only data in src/book.json',
+      'STAFF DATA IN A PUBLIC REPO: ' + leaks.join(', ') + ' — run `npm run extract` to strip it');
+
 /* 3 — markers referenced actually exist */
 const markerIds = (data.markers || []).map(m => m.id);
 const badMarkers = [];
@@ -66,6 +76,15 @@ check(fs.existsSync(path.join(ROOT, '.nojekyll')), '.nojekyll present', '.nojeky
 const block = fresh.match(/id="book-data">([\s\S]*?)<\/script>/);
 check(!!block, 'data block found', 'no data block in the built page');
 if (block) check(block[1].indexOf('<') === -1, 'data block has no raw "<"', 'data block contains a raw "<" and can terminate its own script tag');
+
+/* 5b — and the page that ships carries no staff data either */
+if (block) {
+  const shipped = JSON.parse(block[1].split(String.fromCharCode(92) + 'u003c').join('<'));
+  const inPage = ['editors', 'audit', 'backups'].filter(k => (shipped[k] || []).length);
+  check(inPage.length === 0,
+        'the published page carries no roster, audit log or backups',
+        'the published page would expose: ' + inPage.join(', '));
+}
 
 /* 6 — the engine parses */
 const start = fresh.lastIndexOf('<script>');

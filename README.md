@@ -1,99 +1,97 @@
 # Mainstreet RP Rulebook
 
-The MSRP rulebook as a single self-contained web page: searchable, every rule
-carrying its own ID, editable in place by approved staff, with backups and an
-audit log.
+The MSRP rulebook as a single self-contained web page: searchable, with every
+rule carrying its own permanent ID.
+
+**Live:** https://kittyka917.github.io/
 
 76 rules across ⭐ General Rules, 🏛️ Government and 😈 Illegal, plus the
 Rulebook Updates changelog.
 
 ---
 
-## Hosting it on GitHub Pages
+## How this is hosted
 
-The whole site is one self-contained file. Nothing to install, no build step on
-the server, no dependencies at runtime.
+One self-contained file. No dependencies at runtime, no build step on the
+server, nothing to install.
 
 This repo is a **user site** (`kittyka917.github.io`), so Pages serves the
-repository root and the page lives at `index.html` at the top level. Once Pages
-is switched on for `main` / `/ (root)`, the rulebook is live at:
-
-**https://kittyka917.github.io/**
-
-`index.html` is written by `npm run build` and committed, so Pages has nothing
-to do but serve it. `.nojekyll` stops Pages running the files through Jekyll.
-For a custom domain, add a `CNAME` file containing the domain and point your
-DNS at GitHub.
-
-### The editor does not exist on the hosted site
-
-The in-page **Edit rulebook** and **Admin** buttons only appear when the page
-is running as a Claude artifact, which is what gives it permission to publish
-new versions of itself. On GitHub Pages there is no such runtime, so the
-buttons never appear and the site is **read-only for everyone**, including you.
-Verified: with no runtime present, both buttons stay hidden and search,
-navigation and all 76 rules work normally.
-
-That leaves two workable setups — pick one and stick to it, because editing in
-both places at once will lose work:
-
-| | **Pages only** | **Pages + artifact** |
-|---|---|---|
-| Public site | GitHub Pages | GitHub Pages |
-| Editing | this repo: edit `src/book.json`, `npm run build`, commit | in the page, then `npm run extract` → commit |
-| Who can edit | anyone with repo write access | anyone with artifact edit access |
-| History | git | git **and** the audit log |
-
-**Pages only** is the simpler one, and the natural fit if you are comfortable
-with git: every change is a commit, review happens in pull requests, and the
-audit log and roster simply go unused.
+repository root and the page is `index.html` at the top level. `index.html` is
+written by `npm run build` and committed, so Pages has only to serve it.
+`.nojekyll` stops Pages running the files through Jekyll. For a custom domain,
+add a `CNAME` file containing the domain and point your DNS at GitHub.
 
 ---
 
-## Two ways to change a rule
+## Public site, staff artifact
 
-**In the page (normal).** Anyone with edit access opens the live page, hits
-**Edit rulebook**, changes what they need and clicks **Publish to everyone**.
-Every open view reloads to the new version. Nothing in this repo is involved.
+There are two copies of this rulebook, and the split is deliberate.
 
-**In this repo (for bigger jobs).** Restructuring sections, bulk imports, or
-anything easier to do in a text editor than a browser.
+| | **Public site** (here) | **Staff artifact** (Claude) |
+|---|---|---|
+| Who can open it | anyone | only people you share it with |
+| Contains | the rules | the rules, roster, audit log, backups |
+| Editing | none — read-only | approved people, enforced server-side |
+| Admin panel | not present, no data to show | visible to the people you approved |
 
-> **Before you edit locally, run `npm run extract`.** It pulls the live data
-> back into `src/book.json`. Skip it and your next build silently overwrites
-> whatever people published from the page since the last time you did.
+**A static site hides nothing.** Every visitor downloads the whole file, and
+this repository is public as well. So a password box or a hidden admin screen
+would be theatre — view-source defeats it.
+
+Instead, the staff data simply is not here. The roster, the audit log and the
+kept backups are never built into the public page and never committed to this
+repo. `tools/check.js` **fails** if any of them appear in `src/book.json` or in
+the page it produces.
+
+**Only approved people ever see the Admin panel, because only they can open the
+artifact at all.** Nothing depends on the interface hiding anything.
+
+The **Edit rulebook** and **Admin** buttons also only appear when the page runs
+as a Claude artifact — that runtime is what lets it publish new versions of
+itself. There is no such runtime on GitHub Pages, so this site is read-only for
+everyone, the owner included.
+
+---
+
+## Changing the rules
+
+Staff edit in the artifact. To push those changes to the public site:
 
 ```bash
-npm run extract   # pull the live page's data into src/book.json
-# ...edit src/book.json...
-npm run build     # regenerate dist/rulebook.html
-npm run check     # verify before publishing
+npm run extract   # pull rules + markers from the artifact, dropping staff data
+npm run build     # regenerate index.html
+npm run check     # 13 checks, including the staff-data guard
+git add -A && git commit -m "rulebook update" && git push
 ```
 
-Then publish `dist/rulebook.html` as a new version of the artifact.
+Pages redeploys within a minute or so.
+
+For bigger jobs — restructuring sections, bulk imports — edit `src/book.json`
+directly, then `npm run build && npm run check` and push.
+
+> **Run `npm run extract` before editing locally.** It pulls the live rules out
+> of the artifact. Skip it and your next build silently overwrites whatever
+> staff published since the last time you did.
 
 ---
 
 ## Layout
 
 ```
-src/book.json       every rule, marker, roster entry and audit entry — the source of truth
+src/book.json       the rules and markers — the source of truth
 src/template.html   the page itself: styles, markup, and the engine
-dist/rulebook.html  the built page — publish this as the artifact
-index.html          the same page, where GitHub Pages serves it from
+index.html          the built page, where GitHub Pages serves it from
+dist/rulebook.html  the same bytes, kept for convenience
 .nojekyll           stops Pages putting the site through Jekyll
-tools/build.js      book.json + template.html → dist/rulebook.html and index.html
+tools/build.js      book.json + template.html → index.html
 tools/check.js      verification; exits non-zero on failure
-tools/extract.js    pulls data back out of a built page into src/book.json
+tools/extract.js    pulls rules back out of a built page, strips staff data
 tools/dupecheck.js  reports rules that say close to the same thing
 ```
 
-`dist/rulebook.html` and `index.html` are the same bytes — one build
-writes both, and `npm run check` fails if either drifts.
-
-`src/template.html` contains a `__BOOK_JSON__` placeholder; the build splices
-the data in. The page rebuilds this same document from itself when someone
-publishes from the browser, so both paths produce the same shape.
+`src/template.html` holds a `__BOOK_JSON__` placeholder that the build fills.
+The page rebuilds this same document from itself when someone publishes from
+the browser, so both paths produce the same shape.
 
 ---
 
@@ -101,39 +99,37 @@ publishes from the browser, so both paths produce the same shape.
 
 Every rule has an ID — `CMB-02`, `KOS-04`, `ALC-09` — and staff cite them in
 reports and bans. **The build never regenerates IDs**, and `check.js` fails if
-any rule is missing one or if two share one.
+a rule is missing one or two rules share one.
 
-- **Adding** a rule: the in-page editor assigns the next free number for that
-  page's prefix (`max + 1`). Appending never renumbers anything above it.
+- **Adding** a rule: the editor assigns the next free number for that page's
+  prefix (`max + 1`). Appending never renumbers anything above it.
 - **Moving** a rule to another page: it keeps its ID. That is why a page can
-  hold more than one prefix — Alliances holds both `ALL-` and `ALC-` — and the
+  hold more than one prefix — Alliances holds both `ALL-` and `ALC-` — and each
   page heading lists the prefixes it actually contains.
 - **Deleting** a rule retires its ID for good. Any link or report citing it
   stops resolving, which is why removal is owner-only.
 
 ---
 
-## Who can change what
+## Who can edit (on the artifact)
 
-Edit access is granted **on the artifact**, in its share menu — not in the
-page, and not here. Publishing runs with each viewer's own account authority
-and the refusal happens server-side, so someone without access cannot publish
-no matter what the page shows them.
+Edit access is granted in the artifact's share menu. Publishing runs with each
+viewer's own account authority and the refusal happens server-side, so someone
+without access cannot publish no matter what the page shows them.
 
-Inside the page, the Admin tab adds a roster on top of that:
+On top of that, the Admin tab keeps a roster:
 
 - **Owner** — full rights, including removing rules, pages and markers.
 - **Editor** — can edit and add, in the sections ticked for them. Every remove
-  control is disabled, and each delete path re-checks ownership so a button
+  control is disabled, and each delete path re-checks ownership, so a button
   forced back into the DOM still refuses.
 
 That roster governs the interface, not the server: anyone with artifact edit
 access could bypass it with devtools. It prevents accidents and keeps people in
 their lane — the audit log is what makes it accountable.
 
-The first roster entry is **locked** (`"locked": true`). It cannot be renamed,
-demoted or removed from inside the page by anyone, including someone editing as
-an owner. Changing it means editing `src/book.json` here.
+The first roster entry is **locked**. It cannot be renamed, demoted or removed
+from inside the page by anyone, including someone editing as an owner.
 
 ---
 
@@ -158,10 +154,11 @@ Archive files are gitignored: they carry the roster and the full audit log.
 npm run check
 ```
 
-Checks that `book.json` parses, every rule has a unique ID, every marker
-reference resolves, the committed `dist/` matches a fresh build, the data block
-cannot terminate its own `<script>` tag, and the page's engine is valid
-JavaScript. CI runs the same thing on every push and pull request.
+Thirteen checks: `book.json` parses; every rule has a unique ID; **no staff
+data has leaked into the repo or the page**; every marker reference resolves;
+the committed `index.html` matches a fresh build; the data block cannot
+terminate its own `<script>` tag; and the engine is valid JavaScript. CI runs
+the same on every push and pull request.
 
 ```bash
 npm run dupes            # all sections

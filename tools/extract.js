@@ -22,14 +22,26 @@ if (!m) throw new Error('no data block found in ' + from);
 const json = m[1].split(String.fromCharCode(92) + 'u003c').join('<');
 const data = JSON.parse(json);
 
-// Write keys in the same order build.js emits them, so extracting twice with
-// no changes produces no diff at all.
+/**
+ * The roster, audit log and backups are STRIPPED here on purpose.
+ *
+ * This repository is public. Anything written into src/book.json is readable
+ * by anyone, so staff names, roles and the full change history stay in the
+ * artifact and never enter git. Only the rules and markers cross over.
+ */
+const dropped = {
+  editors: (data.editors || []).length,
+  audit: (data.audit || []).length,
+  backups: (data.backups || []).length
+};
+
+// Same key order build.js emits, so extracting twice produces no diff.
 const ordered = {
   book: data.book,
   markers: data.markers || [],
-  editors: data.editors || [],
-  audit: data.audit || [],
-  backups: data.backups || []
+  editors: [],
+  audit: [],
+  backups: []
 };
 
 const out = path.join(ROOT, 'src', 'book.json');
@@ -37,8 +49,8 @@ fs.writeFileSync(out, JSON.stringify(ordered, null, 1), 'utf8');
 
 const rules = data.book.reduce((n, s) => n + (s.groups || []).reduce((m2, g) => m2 + g.rules.length, 0), 0);
 console.log('extracted from ' + path.relative(ROOT, from) + ' → src/book.json');
-console.log('  ' + data.book.length + ' sections, ' + rules + ' rules, ' +
-            (data.markers || []).length + ' markers, ' +
-            (data.editors || []).length + ' roster entries, ' +
-            (data.audit || []).length + ' audit entries, ' +
-            (data.backups || []).length + ' backups');
+console.log('  kept:    ' + data.book.length + ' sections, ' + rules + ' rules, ' +
+            (data.markers || []).length + ' markers');
+console.log('  dropped: ' + dropped.editors + ' roster entries, ' + dropped.audit +
+            ' audit entries, ' + dropped.backups + ' backups' +
+            '  (staff-only — these stay in the artifact, out of the public repo)');

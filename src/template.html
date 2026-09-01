@@ -769,7 +769,7 @@ let   BACKUPS = (Array.isArray(DATA) ? [] : (DATA.backups || [])).slice(0, MAX_B
 const clone   = x => JSON.parse(JSON.stringify(x));
 let   ORIGINAL = clone(BOOK);   /* the published state this view loaded */
 
-/* Admin records. EDITORS is a roster Morgan keeps — it does NOT grant
+/* Admin records. EDITORS is a roster the owner keeps — it does NOT grant
    anything; artifact sharing does. AUDIT is the change history, written on
    every successful publish. */
 const MAX_AUDIT = 200;
@@ -1800,7 +1800,7 @@ document.addEventListener('click', e=>{
       body:'This saves a new version of the rulebook. Every open view reloads to it, and the version it replaces is kept as a backup.',
       fields:'<div class="form" style="padding:0;border:0;background:none;margin:0">'
         + '<div><label for="pby">Your name (recorded in the audit log)</label>'
-        + '<input id="pby" type="text" data-field="by" value="'+esc(editorName() || identity().name)+'" placeholder="e.g. Morgan"></div>'
+        + '<input id="pby" type="text" data-field="by" value="'+esc(editorName() || identity().name)+'" placeholder="e.g. your name"></div>'
         + '<div><label for="pn">What changed? (optional — adds a line to Rulebook Updates)</label>'
         + '<input id="pn" type="text" data-field="note" placeholder="e.g. Added the KOS duration rule"></div></div>',
       ok:'Publish',
